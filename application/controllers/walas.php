@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Walas extends CI_Controller {
-
+//Halaman Walas. SMK Negeri 1 Kota Bekasi
     function __construct() {
         parent::__construct();
         $this->load->model(array('msuratmasuk','mdb'));

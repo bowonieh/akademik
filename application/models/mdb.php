@@ -69,7 +69,15 @@ class Mdb extends CI_Model{
             'UTS'=> $aa->UTS,
             'UAS'=>$aa->UAS,
             'total_pengetahuan' => ((2*rata_rata(array(rata_rata(array($aa->uh1,$aa->uh2, $aa->uh3,$aa->uh4)),rata_rata(array($aa->t1,$aa->t2,$aa->t3,$aa->t4))))) + $aa->UTS + $aa->UAS) / 4,
-            'skala4_pengetahuan' => bilangan4(((2*rata_rata(array(rata_rata(array($aa->uh1,$aa->uh2, $aa->uh3,$aa->uh4)),rata_rata(array($aa->t1,$aa->t2,$aa->t3,$aa->t4))))) + $aa->UTS + $aa->UAS) / 4)
+            'skala4_pengetahuan' => bilangan4(((2*rata_rata(array(rata_rata(array($aa->uh1,$aa->uh2, $aa->uh3,$aa->uh4)),rata_rata(array($aa->t1,$aa->t2,$aa->t3,$aa->t4))))) + $aa->UTS + $aa->UAS) / 4),
+            'observasi1'=>$aa->observasi1,
+            'observasi2'=>$aa->observasi2,
+            'rerata_observasi'=>rata_rata(array($aa->observasi1,$aa->observasi2) ),
+            'penilaian_diri1'=>$aa->penilaian_diri1,
+            'penilaian_diri2'=>$aa->penilaian_diri2,
+            'penilaian_diri3'=>$aa->penilaian_diri3,
+            'rerata_penilaian_diri'=>  rata_rata(array($aa->penilaian_diri1,$aa->penilaian_diri2,$aa->penilaian_diri3))
+            
             );
 
         if($this->db->update('d_nilai',$data,array('id_nilai'=>$id))){
