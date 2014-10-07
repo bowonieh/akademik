@@ -72,12 +72,20 @@ class Mdb extends CI_Model{
             'skala4_pengetahuan' => bilangan4(((2*rata_rata(array(rata_rata(array($aa->uh1,$aa->uh2, $aa->uh3,$aa->uh4)),rata_rata(array($aa->t1,$aa->t2,$aa->t3,$aa->t4))))) + $aa->UTS + $aa->UAS) / 4),
             'observasi1'=>$aa->observasi1,
             'observasi2'=>$aa->observasi2,
-            'rerata_observasi'=>rata_rata(array($aa->observasi1,$aa->observasi2) ),
+            'rerata_observasi'=>rata_rata(array($aa->observasi1,$aa->observasi2)),
             'penilaian_diri1'=>$aa->penilaian_diri1,
             'penilaian_diri2'=>$aa->penilaian_diri2,
             'penilaian_diri3'=>$aa->penilaian_diri3,
-            'rerata_penilaian_diri'=>  rata_rata(array($aa->penilaian_diri1,$aa->penilaian_diri2,$aa->penilaian_diri3))
-            
+            'rerata_penilaian_diri'=>  rata_rata(array($aa->penilaian_diri1,$aa->penilaian_diri2,$aa->penilaian_diri3)),
+            'penilaian_teman1' => $aa->penilaian_teman1,
+            'penilaian_teman2' => $aa->penilaian_teman2,
+            'rerata_penilaian_teman' =>rata_rata(array($aa->penilaian_teman1,$aa->penilaian_teman2)),
+            'jurnal1' => $aa->jurnal1,
+            'jurnal2' =>$aa->jurnal2,
+            'rerata_jurnal' => rata_rata(array($aa->jurnal1,$aa->jurnal2)),
+            'nilai_raport' => (rata_rata(array($aa->observasi1,$aa->observasi2))+ rata_rata(array($aa->penilaian_diri1,$aa->penilaian_diri2,$aa->penilaian_diri3)) + rata_rata(array($aa->penilaian_teman1,$aa->penilaian_teman2)) + rata_rata(array($aa->jurnal1,$aa->jurnal2)) )/4,
+            'predikat_sikap' => predikat((rata_rata(array($aa->observasi1,$aa->observasi2))+ rata_rata(array($aa->penilaian_diri1,$aa->penilaian_diri2,$aa->penilaian_diri3)) + rata_rata(array($aa->penilaian_teman1,$aa->penilaian_teman2)) + rata_rata(array($aa->jurnal1,$aa->jurnal2)) )/4),
+            'skala4_sikap' => bilangan4((rata_rata(array($aa->observasi1,$aa->observasi2))+ rata_rata(array($aa->penilaian_diri1,$aa->penilaian_diri2,$aa->penilaian_diri3)) + rata_rata(array($aa->penilaian_teman1,$aa->penilaian_teman2)) + rata_rata(array($aa->jurnal1,$aa->jurnal2)) )/4)
             );
 
         if($this->db->update('d_nilai',$data,array('id_nilai'=>$id))){
