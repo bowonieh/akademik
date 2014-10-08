@@ -175,27 +175,27 @@
        <a href="<?php echo base_url();?>index.php/mapelsaya/detil/<?php echo $isi->id_matpelguru;?>"><button class="btn btn-primary">Beranda Mapel</button></a>
        <p class="hrnya"></p>
        <div id="status" class="alert"></div>
-       <table class="table table-bordered table-mini table-condensed table-hover table-striped bootstrap-datatable datatable">
+       <table class="table table-bordered table-mini table-condensed table-hover table-striped bootstrap-datatable datatable " id="EntryNilai">
         <thead>
           <tr>
             
             <th rowspan="3">NIS</th>
             <th rowspan="3">KELAS</th>
             <th rowspan="3">NAMA LENGKAP</th>
-            <th colspan="11">KET</th>
-            <th colspan="10">PENG</th>
+            <th colspan="11">KETERAMPILAN</th>
+            <th colspan="10">PENGETAHUAN</th>
             <th colspan="9">SIKAP</th>
           </tr>
           <tr>
-            <th colspan="4">Pra</th>
-            <th colspan="4">Pro</th>
-            <th colspan="3">Por</th>
-            <th colspan="4">Tgs</th>
+            <th colspan="4">Praktek</th>
+            <th colspan="4">Project</th>
+            <th colspan="3">Portofolio</th>
+            <th colspan="4">Tugas</th>
             <th colspan="4">UH</th>
             <th >UTS</th>
             <th >UAS</th>
             
-            <th colspan="2">Obs</th>
+            <th colspan="2">Observasi</th>
             <th colspan="3">Pdiri</th>
             <th colspan="2">Pteman</th>
             <th colspan="2">Jur</th>
@@ -377,17 +377,18 @@
 </div>
 </body>
 <script type="text/javascript">
-$(function(){
+    
+$(document).on('click','#EntryNilai',function(){
   //acknowledgement message
     var message_status = $("#status");
     $("td[contenteditable=true]").blur(function(){
 
-        var field_userid = $(this).attr("id") ;
+        var field_userid = $(this).attr("id");
         var reg = new RegExp('/[^0-9]/g');
-        var value = $(this).text() ;
+        var value = $(this).text();
        
             $.post('../ajaxpostnilai' , field_userid + "=" + value, function(data){
-            if(data != '')
+            if(data !== '')
                 {
                     message_status.show();
                     message_status.text(data);
