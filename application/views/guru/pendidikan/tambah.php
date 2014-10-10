@@ -154,7 +154,7 @@ $("#tambahPendidikan").click(function(event){
                                 <div class="titlehr"></div>
                             </div>
                             <div class="isisubbox">
-                            	<div class="isisubmenu">GANTI PASSWORD</div>
+                            	
 							</div>
                     </ul>
       </li>

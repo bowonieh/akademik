@@ -75,7 +75,7 @@ class Mapelsaya extends CI_Controller {
                 if (empty($id_katmapel)|| empty($id_matpel)|| empty($id_tahun) || empty($nama_matpel)){
                         echo "ErrorForm";
                 }else{
-                    if($this->mdb->chkexist('d_matpelguru',array('id_guru'=>$id_guru,'id_matpel'=>$id_matpel,'id_tahun'=>$id_tahun)) >= 1){
+                    if($this->mdb->chkexist('d_matpelguru',array('id_guru'=>$id_guru,'id_matpel'=>$id_matpel,'id_tahun'=>$id_tahun,'nama_matpel'=>$nama_matpel)) >= 1){
 
                             echo 'dataDouble';
 
@@ -723,7 +723,7 @@ class Mapelsaya extends CI_Controller {
                             //mysql_query("UPDATE user_details SET $field_name = '$val' WHERE user_id = $user_id") or mysql_error();
                             if($this->mdb->mRata($user_id)){
                                 
-                                echo "Updated";        
+                                echo "Data Berhasil diperbarui";        
                             }else{
                                 echo "Nilai tidak bisa dimasukkan";
                             }

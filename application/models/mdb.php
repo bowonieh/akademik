@@ -1,7 +1,10 @@
 <?php
 
 class Mdb extends CI_Model{
-    
+    //Insert based on select
+    //INSERT INTO data (col1,col2)
+    //SELECT col1, '438'
+    //where data.id = 'id_val'
     function getall($table){
         
         $this->db->get($table);
@@ -54,6 +57,7 @@ class Mdb extends CI_Model{
             'porto'=> rata_rata(array($aa->pr1,$aa->pr2,$aa->pr3)),
             'nilai_ratusan' => ((2*rata_rata(array($aa->tp1,$aa->tp2,$aa->tp3,$aa->tp4)))+(rata_rata(array($aa->p1,$aa->p2,$aa->p3,$aa->p4)))+(rata_rata(array($aa->pr1,$aa->pr2,$aa->pr3))) )/4,
             'nilai4_keterampilan' => bilangan4(((2*rata_rata(array($aa->tp1,$aa->tp2,$aa->tp3,$aa->tp4)))+(rata_rata(array($aa->p1,$aa->p2,$aa->p3,$aa->p4)))+(rata_rata(array($aa->pr1,$aa->pr2,$aa->pr3))) )/4),
+            'predikat_keterampilan' => predikat(((2*rata_rata(array($aa->tp1,$aa->tp2,$aa->tp3,$aa->tp4)))+(rata_rata(array($aa->p1,$aa->p2,$aa->p3,$aa->p4)))+(rata_rata(array($aa->pr1,$aa->pr2,$aa->pr3))) )/4), 
             //Nilai Pengetahuan
             'uh1' => $aa->uh1,
             'uh2' => $aa->uh2,
@@ -69,7 +73,24 @@ class Mdb extends CI_Model{
             'UTS'=> $aa->UTS,
             'UAS'=>$aa->UAS,
             'total_pengetahuan' => ((2*rata_rata(array(rata_rata(array($aa->uh1,$aa->uh2, $aa->uh3,$aa->uh4)),rata_rata(array($aa->t1,$aa->t2,$aa->t3,$aa->t4))))) + $aa->UTS + $aa->UAS) / 4,
-            'skala4_pengetahuan' => bilangan4(((2*rata_rata(array(rata_rata(array($aa->uh1,$aa->uh2, $aa->uh3,$aa->uh4)),rata_rata(array($aa->t1,$aa->t2,$aa->t3,$aa->t4))))) + $aa->UTS + $aa->UAS) / 4)
+            'skala4_pengetahuan' => bilangan4(((2*rata_rata(array(rata_rata(array($aa->uh1,$aa->uh2, $aa->uh3,$aa->uh4)),rata_rata(array($aa->t1,$aa->t2,$aa->t3,$aa->t4))))) + $aa->UTS + $aa->UAS) / 4),
+            'predikat_pengetahuan' => predikat(((2*rata_rata(array(rata_rata(array($aa->uh1,$aa->uh2, $aa->uh3,$aa->uh4)),rata_rata(array($aa->t1,$aa->t2,$aa->t3,$aa->t4))))) + $aa->UTS + $aa->UAS) / 4),
+            'observasi1'=>$aa->observasi1,
+            'observasi2'=>$aa->observasi2,
+            'rerata_observasi'=>rata_rata(array($aa->observasi1,$aa->observasi2)),
+            'penilaian_diri1'=>$aa->penilaian_diri1,
+            'penilaian_diri2'=>$aa->penilaian_diri2,
+            'penilaian_diri3'=>$aa->penilaian_diri3,
+            'rerata_penilaian_diri'=>  rata_rata(array($aa->penilaian_diri1,$aa->penilaian_diri2,$aa->penilaian_diri3)),
+            'penilaian_teman1' => $aa->penilaian_teman1,
+            'penilaian_teman2' => $aa->penilaian_teman2,
+            'rerata_penilaian_teman' =>rata_rata(array($aa->penilaian_teman1,$aa->penilaian_teman2)),
+            'jurnal1' => $aa->jurnal1,
+            'jurnal2' =>$aa->jurnal2,
+            'rerata_jurnal' => rata_rata(array($aa->jurnal1,$aa->jurnal2)),
+            'nilai_raport' => (rata_rata(array($aa->observasi1,$aa->observasi2))+ rata_rata(array($aa->penilaian_diri1,$aa->penilaian_diri2,$aa->penilaian_diri3)) + rata_rata(array($aa->penilaian_teman1,$aa->penilaian_teman2)) + rata_rata(array($aa->jurnal1,$aa->jurnal2)) )/4,
+            'predikat_sikap' => predikat((rata_rata(array($aa->observasi1,$aa->observasi2))+ rata_rata(array($aa->penilaian_diri1,$aa->penilaian_diri2,$aa->penilaian_diri3)) + rata_rata(array($aa->penilaian_teman1,$aa->penilaian_teman2)) + rata_rata(array($aa->jurnal1,$aa->jurnal2)) )/4),
+            'skala4_sikap' => bilangan4((rata_rata(array($aa->observasi1,$aa->observasi2))+ rata_rata(array($aa->penilaian_diri1,$aa->penilaian_diri2,$aa->penilaian_diri3)) + rata_rata(array($aa->penilaian_teman1,$aa->penilaian_teman2)) + rata_rata(array($aa->jurnal1,$aa->jurnal2)) )/4)
             );
 
         if($this->db->update('d_nilai',$data,array('id_nilai'=>$id))){

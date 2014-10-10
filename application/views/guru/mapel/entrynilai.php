@@ -29,6 +29,7 @@
 	<link href='<?php echo base_url();?>style/css/jquery.iphone.toggle.css' rel='stylesheet'>
 	<link href='<?php echo base_url();?>style/css/opa-icons.css' rel='stylesheet'>
 	<link href='<?php echo base_url();?>style/css/uploadify.css' rel='stylesheet'>
+        <link href='<?php echo base_url();?>style/css/pnotify.custom.min.css' rel='stylesheet'>
 	
 	
 </head>
@@ -174,28 +175,29 @@
        <p class="judul">Menu Pengolahan Nilai Mapel <?php echo $isi->nama_matpel ;?></p>
        <a href="<?php echo base_url();?>index.php/mapelsaya/detil/<?php echo $isi->id_matpelguru;?>"><button class="btn btn-primary">Beranda Mapel</button></a>
        <p class="hrnya"></p>
-       <div id="status" class="alert"></div>
-       <table class="table table-bordered table-mini table-condensed table-hover table-striped bootstrap-datatable datatable">
+       <!--<div id="status" class="alert"></div>-->
+       <div class='notifications top-left' id="status"></div>
+       <table class="table table-bordered table-mini table-condensed table-hover table-striped bootstrap-datatable datatable " id="EntryNilai">
         <thead>
           <tr>
             
             <th rowspan="3">NIS</th>
             <th rowspan="3">KELAS</th>
             <th rowspan="3">NAMA LENGKAP</th>
-            <th colspan="11">KET</th>
-            <th colspan="10">PENG</th>
+            <th colspan="11">KETERAMPILAN</th>
+            <th colspan="10">PENGETAHUAN</th>
             <th colspan="9">SIKAP</th>
           </tr>
           <tr>
-            <th colspan="4">Pra</th>
-            <th colspan="4">Pro</th>
-            <th colspan="3">Por</th>
-            <th colspan="4">Tgs</th>
+            <th colspan="4">Praktek</th>
+            <th colspan="4">Project</th>
+            <th colspan="3">Portofolio</th>
+            <th colspan="4">Tugas</th>
             <th colspan="4">UH</th>
             <th >UTS</th>
             <th >UAS</th>
             
-            <th colspan="2">Obs</th>
+            <th colspan="2">Observasi</th>
             <th colspan="3">Pdiri</th>
             <th colspan="2">Pteman</th>
             <th colspan="2">Jur</th>
@@ -370,6 +372,7 @@
 	<script src="<?php echo base_url();?>style/js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="<?php echo base_url();?>style/js/charisma.js"></script>
+        <script src="<?php echo base_url();?>style/js/pnotify.custom.min.js"></script>
 	
   <div id="footer">
    	<div class="footerstatus" align="right">© 2014 SISFO AKADEMIK SISWA - SMK NEGERI 1 KOTA BEKASI</div>
@@ -377,26 +380,38 @@
 </div>
 </body>
 <script type="text/javascript">
-$(function(){
+    
+$(document).on('blur',"td[contenteditable=true]",function(){
   //acknowledgement message
-    var message_status = $("#status");
-    $("td[contenteditable=true]").blur(function(){
+    //var message_status = $("#status");
+    //$("td[contenteditable=true]").blur(function(){
 
-        var field_userid = $(this).attr("id") ;
+        var field_userid = $(this).attr("id");
         var reg = new RegExp('/[^0-9]/g');
-        var value = $(this).text() ;
-       
+        var value = $(this).text();
+       if (!$.isNumeric(value)){
+           new PNotify({
+                    title: 'Gagal',
+                    type: 'alert',
+                    text: 'mohon memasukkan angka saja'
+                });
+       }else{
             $.post('../ajaxpostnilai' , field_userid + "=" + value, function(data){
-            if(data != '')
+            if(data !== '')
                 {
-                    message_status.show();
-                    message_status.text(data);
+                    new PNotify({
+                    title: 'Berhasil',
+                    type: 'success',
+                    text: data
+                });
+                    //message_status.show();
+                    //message_status.text(data);
                     //hide the message
-                    setTimeout(function(){message_status.hide()},3000);
+                    //setTimeout(function(){message_status.hide()},3000);
                 }
             });
-        
-    });
+       };
+    //});
 });
 </script>
 </html>

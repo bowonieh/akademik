@@ -175,7 +175,7 @@
        <a href="<?php echo base_url();?>index.php/mapelsaya/detil/<?php echo $isi->id_matpelguru;?>"><button class="btn btn-primary">Beranda Mapel</button></a>
        <p class="hrnya"></p>
        <div id="status" class="alert"></div>
-       <table class="table table-bordered table-mini table-condensed table-hover table-striped bootstrap-datatable datatable">
+       <table class="table table-bordered table-mini table-condensed table-hover table-striped bootstrap-datatable datatable" id="EntryDeskripsi">
         <thead>
           <tr>
             
@@ -296,7 +296,7 @@
 </div>
 </body>
 <script type="text/javascript">
-$(function(){
+$(document).on('click','#EntryDeskripsi',function(){
   //acknowledgement message
     var message_status = $("#status");
     $("td[contenteditable=true]").blur(function(){
