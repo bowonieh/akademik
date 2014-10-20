@@ -364,23 +364,74 @@
                         pass_baru_confirm : $('#pass_baru_confirm').val(),
                         ajax : '1'
                     };
-                    $.ajax({
-                            type: "POST",
-                            url: href,
-                            async : false,
-                            cache: false,
-                            data: form_data,
-                            success: function(response) {
-                            $('.pesan').html(response);    
-                            //$(".modal").delay(10000).modal('hide');
-                            setTimeout(function() { $('.modal').modal('hide'); }, 10000);
-                            //location.reload(true);
+                                    $.ajax({
+                                             type: "POST",
+                                             url: href,
+                                             async : false,
+                                             cache: false,
+                                             data: form_data,
+                                             success: function(response) {
+                                            $('.pesan').html(response);    
+                                             //$(".modal").delay(10000).modal('hide');
+                                             setTimeout(function() { $('.modal').modal('hide'); }, 10000);
+                                            //location.reload(true);
                             
            
            
-                        }
+                                             }
+                                    });
+                            });
+                            //ganti Username
+                            $("#username").live('keyup',function(z){
+                            z.preventDefault();
+                            var href = 'checkusername';
+                            var form_data2 = {
+                                id_guru : $('#id_guru').val(),
+                                username : $('#username').val()
+                                }
+                                $.ajax({
+                                   type: "POST",
+                                   url: href,
+                                   async: false,
+                                   cache: false, 
+                                   data: form_data2,
+                                   success: function(response){
+                                       if(response === 'error'){
+                                            //disable tombol simpan
+                                       }else if(response === 'unik'){
+                                           
+                                       }
+                                   }
+                                });
+                            });
+                            
+                    $("#editUsername").live('click',function(e){
+                            e.preventDefault();
+                            var href = $(this).attr("data-proce");
+                            var form_data = {
+                                id_guru : $('#id_guru').val(),
+                                username : $('#username').val
+                            };
+                            $.ajax({
+                                type: "POST",
+                                url: href,
+                                async : false,
+                                cache: false,
+                                data: form_data,
+                                success: function(response) {
+                                $('.modal').html(response);    
+                                //$(".modal").delay(10000).modal('hide');
+                                setTimeout(function() { $('.modal').modal('hide'); }, 10000);
+                                location.reload(true);
+           
+           
+                            }
+                        });
+                            
+                            
                     });
-                    });
+                    
+                            //edit profil
                 $("#editProfil").live('click',function(a){
                 a.preventDefault();    
                 var href = $(this).attr("data-proc");
@@ -400,20 +451,20 @@
                     ajax : '1'
                 };
                 $.ajax({
-        type: "POST",
-        url: href,
-        async : false,
-        cache: false,
-        data: form_data,
-        success: function(response) {
-           $('.modal').html(response);    
-           //$(".modal").delay(10000).modal('hide');
-           setTimeout(function() { $('.modal').modal('hide'); }, 10000);
-           location.reload(true);
+                    type: "POST",
+                    url: href,
+                    async : false,
+                    cache: false,
+                    data: form_data,
+                    success: function(response) {
+                    $('.modal').html(response);    
+                    //$(".modal").delay(10000).modal('hide');
+                    setTimeout(function() { $('.modal').modal('hide'); }, 10000);
+                    location.reload(true);
            
            
-        }
-                });
+                            }
+                        });
                 });
                 
             });

@@ -213,7 +213,7 @@
                <td><?php echo $d->tahun;?></td>
                <td><a href="<?php echo base_url();?>index.php/mapelsaya/kurikulum/<?php echo $d->id_matpelguru;?>"<button class="btn btn-primary"><i class="icon-white icon-eye-open"></i>  LIHAT SILABUS</button></a>
                
-               <a class="btn btn-danger delete" href="<?php echo base_url();?>index.php/mapelsaya/unregister/<?php echo $d->id_matpelguru;?>" data-confirm="Hapus Data?">
+               <a class="btn btn-danger keluar" href="<?php echo base_url();?>index.php/mapelsaya/unregister/<?php echo $d->id_matpelguru;?>" data-confirm="Hapus Data?">
 										<i class="icon-trash icon-white"></i> 
 										KELUAR
 									</a>
@@ -319,4 +319,48 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+            
+$(document).on("click",".keluar",function(event){
+//$(".delete").click(function(event){
+     var alert = confirm("Keluar dari Mata Pelajaran?");
+     
+     var href = $(this).attr("href");
+     var btn = this;
+     $(alert).show();
+     if(alert){
+         $.ajax({
+        type: "GET",
+        url: href,
+        success: function(response) {
+
+          if (response === "Sukses")
+          {
+            $(btn).closest('tr').fadeOut("slow");
+          }
+          else if (response==="Gagal"){
+            $(btn).fadeOut('500');
+            
+            $('.alert').html("Gagal");
+            $('.tableMapel').fadeOut('500');
+            $('.alert').show();
+            $('.alert').delay(4500).fadeOut('slow');
+            $(btn).delay(5000).fadeIn('slow');
+            $('.tableMapel').delay(5000).fadeIn();
+          }
+          else
+          {
+            alert("Error");
+          }
+
+        }
+      });
+     }else{
+         
+     }
+      
+     event.preventDefault();
+  });
+
+            </script>
 </html>

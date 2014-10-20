@@ -125,3 +125,10 @@ function ceklulus($x,$y){
         return FALSE;
     }
 }
+
+function konversi4($x){
+    $a = (1/5)*$x - 2.66;
+    if($a <= 4){
+        return $a;
+    }
+}

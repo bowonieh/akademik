@@ -227,6 +227,7 @@ class Mdb extends CI_Model{
         $a = $this->session->userdata('username');
         $this->db->where(array('username'=>$a));
         $this->db->join('d_siswa','d_siswa.user_id = d_user.user_id','inner');
+        $this->db->join('d_kelas','d_siswa.id_kelas = d_kelas.id_kelas','inner');
         $d = $this->db->get('d_user');
         $as = $d->row();
         return $as;

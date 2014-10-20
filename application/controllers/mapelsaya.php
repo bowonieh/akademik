@@ -75,7 +75,7 @@ class Mapelsaya extends CI_Controller {
                 if (empty($id_katmapel)|| empty($id_matpel)|| empty($id_tahun) || empty($nama_matpel)){
                         echo "ErrorForm";
                 }else{
-                    if($this->mdb->chkexist('d_matpelguru',array('id_guru'=>$id_guru,'id_matpel'=>$id_matpel,'id_tahun'=>$id_tahun)) >= 1){
+                    if($this->mdb->chkexist('d_matpelguru',array('id_guru'=>$id_guru,'id_matpel'=>$id_matpel,'id_tahun'=>$id_tahun,'nama_matpel'=>$nama_matpel)) >= 1){
 
                             echo 'dataDouble';
 
@@ -723,7 +723,7 @@ class Mapelsaya extends CI_Controller {
                             //mysql_query("UPDATE user_details SET $field_name = '$val' WHERE user_id = $user_id") or mysql_error();
                             if($this->mdb->mRata($user_id)){
                                 
-                                echo "Updated";        
+                                echo "Data Berhasil diperbarui";        
                             }else{
                                 echo "Nilai tidak bisa dimasukkan";
                             }
@@ -807,6 +807,28 @@ class Mapelsaya extends CI_Controller {
             }
         }
 
+    }
+    
+    function unregister(){
+         if($this->session->userdata('username',TRUE)&& $this->session->userdata('level')==='3'){
+             $id = $this->uri->segment(3);
+             $id_siswa = $this->mdb->infosiswa();
+             if(!empty($id)){
+                 
+                 //$this->db->where(array('id_nilai'=>$id));
+                 $a = $this->db->delete('d_nilai',array('id_matpelguru'=>$id,'nis'=>$id_siswa->nis));
+                 if($a){
+                     echo "Sukses";
+                 }else{
+                     echo "Gagal";
+                 }
+                 
+             }else{
+                 
+             }
+         }else{
+             echo "noLoginYet";
+         }
     }
 
 }

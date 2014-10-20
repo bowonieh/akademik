@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<!--
-		Charisma v1.0.0
-
-		Copyright 2012 Muhammad Usman
-		Licensed under the Apache License v2.0
-		http://www.apache.org/licenses/LICENSE-2.0
-
-		http://usman.it
-		http://twitter.com/halalit_usman
-	-->
+	
 	<meta charset="utf-8">
-	<title>LOGIN SIAKAD</title>
+	<title>LOGIN SIAKAD SMK Negeri 1 Kota Bekasi</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
 	<meta name="author" content="Muhammad Usman">
@@ -62,6 +53,8 @@
 			<div class="row-fluid">
 				<div class="span12 center login-header">
 					<h2>SELAMAT DATANG</h2>
+                                </p>
+                                <h3>SISTEM INFORMASI AKADEMIK</h3>
 				</div><!--/span-->
 			</div><!--/row-->
 			
@@ -89,8 +82,8 @@
 							<p class="center span5">
 							<!-- <button type="submit" class="btn btn-primary loginform">Login</button>-->
                                                         <a class="btn btn-danger loginform" href="<?php echo base_url();?>index.php/login/proseslogin" redirect="<?php echo base_url();?>index.php/home">
-										<i class="icon-trash icon-white"></i> 
-										Login
+										
+										MASUK
 									</a>
 							</p>
 						</fieldset>

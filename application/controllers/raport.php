@@ -124,7 +124,11 @@ class Raport extends CI_Controller {
         }
     }
     
-    
+    function unduh(){
+            $id_tahun = $this->uri->segment(3);
+            $id_siswa = $this->mdb->infosiswa();
+            
+    }
     
     
 }

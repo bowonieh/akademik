@@ -85,6 +85,30 @@ class Profil extends CI_Controller {
                 redirect('home','refresh');
             }
         }
+        
+        function editusername(){
+            if ($this->session->userdata('level')==='2'){
+            $info_guru = $this->mdb->infouser();
+            $this->db->join('d_user','d_guru.user_id = d_guru.user_id','inner');
+            $this->db->where(array('d_guru.id_guru'=>$info_guru->id_guru));
+            $a = $this->db->get('d_guru');
+            $data['profil'] = $a->row();
+            $this->load->view('profil/editusername',$data);
+            }
+        }
+        function checkusername(){
+            if ($this->session->userdata('level')==='2'){
+                $username = $this->input->post('username');
+                $d = $this->mdb->chkexist('d_user',array('username'=>$username));
+                
+                if($d > 0 ){
+                    echo "error";
+                }else{
+                    echo "unik";
+                }
+            }
+            
+        }
         function simpanpassword(){
             if ($this->session->userdata('level')==='2'){
                 //untuk proses guru
