@@ -1,7 +1,10 @@
 <?php
 
 class Mdb extends CI_Model{
-    
+    //Insert based on select
+    //INSERT INTO data (col1,col2)
+    //SELECT col1, '438'
+    //where data.id = 'id_val'
     function getall($table){
         
         $this->db->get($table);
