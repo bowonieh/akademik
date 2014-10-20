@@ -211,14 +211,14 @@
                <td><?php echo $d->nama_matpel;?></td>
                <td><?php echo $d->nama_guru;?></td>
                <td><?php echo $d->tahun;?></td>
-               <td><a href="<?php echo base_url();?>index.php/mapelsaya/kurikulum/<?php echo $d->id_matpelguru;?>"<button class="btn btn-primary"><i class="icon-white icon-eye-open"></i>  LIHAT SILABUS</button></a>
+               <td><a href="<?php echo base_url();?>index.php/mapelsaya/kurikulum/<?php echo $d->id_matpelguru;?>"><button class="btn btn-primary"><i class="icon-white icon-eye-open"></i>  LIHAT SILABUS</button></a>
                
                <a class="btn btn-danger keluar" href="<?php echo base_url();?>index.php/mapelsaya/unregister/<?php echo $d->id_matpelguru;?>" data-confirm="Hapus Data?">
 										<i class="icon-trash icon-white"></i> 
 										KELUAR
 									</a>
                
-               <a href="<?php echo base_url();?>index.php/mapelsaya/nilai/<?php echo $d->id_matpelguru;?>"<button class="btn btn-info"><i class="icon-white icon-eye-open"></i>  NILAI</button></a>
+               <a href="<?php echo base_url();?>index.php/mapelsaya/nilai/<?php echo $d->id_matpelguru;?>"><button class="btn btn-info"><i class="icon-white icon-eye-open"></i>  NILAI</button></a>
                </td>
                
            </tr>

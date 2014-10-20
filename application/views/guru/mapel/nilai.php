@@ -208,9 +208,9 @@
                <td><?php echo $d->kelas;?></td>
                <td><?php echo $d->nama_siswa;?></td>
                
-               <td><a href="<?php echo base_url();?>index.php/mapelsaya/nilai_nk/<?php echo $d->id_nk;?>"<button class="btn btn-primary">  Beri Nilai Keterampilan</button></a>
-                   <a href="<?php echo base_url();?>index.php/mapelsaya/nilai_ns/<?php echo $d->id_ns;?>"<button class="btn btn-success">  Beri Nilai Sikap</button></a>
-                   <a href="<?php echo base_url();?>index.php/mapelsaya/nilai_pe/<?php echo $d->id_d_nilai_pengetahuan;?>"<button class="btn btn-danger">  Beri Nilai Pengetahuan</button></a>
+               <td><a href="<?php echo base_url();?>index.php/mapelsaya/nilai_nk/<?php echo $d->id_nk;?>"><button class="btn btn-primary">  Beri Nilai Keterampilan</button></a>
+                   <a href="<?php echo base_url();?>index.php/mapelsaya/nilai_ns/<?php echo $d->id_ns;?>"><button class="btn btn-success">  Beri Nilai Sikap</button></a>
+                   <a href="<?php echo base_url();?>index.php/mapelsaya/nilai_pe/<?php echo $d->id_d_nilai_pengetahuan;?>"><button class="btn btn-danger">  Beri Nilai Pengetahuan</button></a>
                
                </td>
                

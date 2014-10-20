@@ -203,7 +203,7 @@
            <tr>
                <td><?php echo $no++;?></td>
                <td><?php echo $d->nama_matpel;?></td>
-               <td><a href="<?php echo base_url();?>index.php/mapelsaya/detil/<?php echo $d->id_matpelguru;?>"<button class="btn btn-success"><i class="icon-white icon-eye-open"></i>  LIHAT DATA</button></a>
+               <td><a href="<?php echo base_url();?>index.php/mapelsaya/detil/<?php echo $d->id_matpelguru;?>"><button class="btn btn-success"><i class="icon-white icon-eye-open"></i>  LIHAT DATA</button></a>
                
                <a class="btn btn-danger delete" href="<?php echo base_url();?>index.php/mapelsaya/hapus/<?php echo $d->id_matpelguru;?>" data-confirm="Hapus Data?">
 										<i class="icon-trash icon-white"></i> 

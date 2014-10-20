@@ -211,7 +211,7 @@
                <td><?php echo $d->nama_ortu;?></td>
                <td><?php echo $d->jenis_ortu;?></td>
                <td><?php echo $d->jumlah_penghasilan;?></td>
-               <td><a href="<?php echo base_url();?>index.php/ortu/detil/<?php echo $d->id_ortu;?>"<button class="btn btn-success"><i class="icon-white icon-eye-open"></i>  LIHAT DATA</button></a>
+               <td><a href="<?php echo base_url();?>index.php/ortu/detil/<?php echo $d->id_ortu;?>"><button class="btn btn-success"><i class="icon-white icon-eye-open"></i>  LIHAT DATA</button></a>
                
                <a class="btn btn-danger delete" href="<?php echo base_url();?>index.php/ortu/hapus/<?php echo $d->id_ortu;?>" data-confirm="Hapus Data?">
 										<i class="icon-trash icon-white"></i> 

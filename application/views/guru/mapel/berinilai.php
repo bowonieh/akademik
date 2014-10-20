@@ -210,7 +210,7 @@
                
                <td>
 
-                <a href="<?php echo base_url();?>index.php/mapelsaya/penilaian/<?php echo $d->id_nilai;?>"<button class="btn btn-primary">  Entry Nilai</button></a>
+                <a href="<?php echo base_url();?>index.php/mapelsaya/penilaian/<?php echo $d->id_nilai;?>"><button class="btn btn-primary">  Entry Nilai</button></a>
                    
                
                </td>
