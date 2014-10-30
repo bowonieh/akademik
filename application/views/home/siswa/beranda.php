@@ -167,8 +167,9 @@
   <!--
   <div class="statusbox"><div class="judulstatusbox" align="center">JUMLAH JAM AJAR</div><img src="<?php echo base_url();?>style/guru/images/jam_34.png"><div class="ISIstatusbox" align="center">8</div></div>
   <div class="statusbox"><div class="judulstatusbox" align="center">JUMLAH KELAS AJAR</div><img src="<?php echo base_url();?>style/guru/images/kelas_34.png"><div class="ISIstatusbox" align="center">12</div></div>
-  <div class="statusbox"><div class="judulstatusbox" align="center">JUMLAH MATA AJAR</div><img src="<?php echo base_url();?>style/guru/images/mapel_34.png"><div class="ISIstatusbox" align="center">3</div></div>
-  <div class="statusbox"><div class="judulstatusbox" align="center">KELAS BIMBINGAN</div><img src="<?php echo base_url();?>style/guru/images/bimbingan_34.png"><div class="ISIstatusbox" align="center">X MM A</div></div>
+  <div class="statusbox"><div class="judulstatusbox" align="center">JUMLAH MATA AJAR</div><img src="<?php echo base_url();?>style/guru/images/mapel_34.png"><div class="ISIstatusbox" align="center">3</div></div>-->
+  <div class="statusbox"><div class="judulstatusbox" align="center">KELAS SAYA</div><img src="<?php echo base_url();?>style/guru/images/bimbingan_34.png"><div class="ISIstatusbox" align="center"><?php echo $namasiswa->kelas;?></div></div>
+  <!-- 
   <div class="statusbox"><div class="judulstatusbox" align="center"> PESAN<BR>BARU</div><img src="<?php echo base_url();?>style/guru/images/pesan_34.png"><div class="ISIstatusbox" align="center">4</div></div>
   -->
   

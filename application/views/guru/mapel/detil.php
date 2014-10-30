@@ -179,7 +179,7 @@
        <div class="row-fluid">
            
 				<div class="span12">
-                                    <a data-rel="tooltip" title="<?php echo $stat;?> siswa." class="well span6 top-block" href="<?php echo base_url();?>index.php/mapelsaya/entrynilai/<?php echo $mapel->id_matpelguru;?>">
+                                    <a data-rel="tooltip" title="<?php echo $stat;?> siswa." class="well span6 top-block" href="<?php echo base_url();?>index.php/mapelsaya/terdaftar/<?php echo $mapel->id_matpelguru;?>">
 					<span class="icon32 icon-red icon-user"></span>
 					<div>Siswa Terdaftar
 					</div>

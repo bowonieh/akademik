@@ -40,29 +40,29 @@
 	<div id="header">
     	<img src="<?php echo base_url();?>style/guru/images/logo.png" class="logohead">
         <div class="headerkanan">
-       	  <div class="status" align="right">SISWA</div>
-          <div class="namauser" align="right"><?php echo strtoupper($namasiswa->nama_siswa);?></div>
+       	  <div class="status" align="right">GURU</div>
+          <div class="namauser" align="right"><?php echo strtoupper($namaguru->nama_guru);?></div>
         </div>
   </div>
     <!-- MENU -->
     <ul id="navigasi">
-    	<li class="navigasibutton">
+    	<li class="navigasibutton"><a href="<?php echo base_url();?>">
             <div class="navigasigambar" align="center"><img src="<?php echo base_url();?>style/guru/images/g_beranda.png" class="gambarnyanavigasi"></div>
-            <div class="navigasitulisan" align="center">BERANDA</div>
+            <div class="navigasitulisan" align="center">BERANDA</div></a>
         </li>
         <li class="navigasibutton">
           <div class="navigasigambar" align="center"><img src="<?php echo base_url();?>style/guru/images/g_profil.png" class="gambarnyanavigasi"></div>
             <div class="navigasitulisan" align="center">PROFIL</div>
         			<ul class="navigasisubbutton">
                     		<div class="titlesubbox">
-                            	<div class="titlesubmenu">PROFIL SISWA</div>
+                            	<div class="titlesubmenu">PROFIL PENDIDIK</div>
                                 <div class="titlehr"></div>
                             </div>
                             <div class="isisubbox">
-                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/profilguru">PROFIL SAYA</a></div>
+                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/profil">PROFIL SAYA</a></div>
 							</div>
                             <div class="isisubbox">
-                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/ortu">DATA ORANG TUA</a></div>
+                            	<div class="isisubmenu">DATA KELUARGA</div>
 							</div>
                             <div class="isisubbox">
                             	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/pendidikan">RIWAYAT PENDIDIKAN</a></div>
@@ -115,7 +115,7 @@
                                 <div class="titlehr"></div>
                             </div>
                             <div class="isisubbox">
-                            	<div class="isisubmenu">KELAS BIMBINGAN</div>
+                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/walas">KELAS BIMBINGAN</a></div>
 							</div>
                             <div class="isisubbox">
                             	<div class="isisubmenu">INFORMASI KELAS & SISWA</div>
@@ -165,76 +165,64 @@
   
   <div id="kontenbody">
       
-   <div class="map">Siswa> MATA PELAJARAN SAYA</div>
+   <div class="map">Guru > MAPEL SAYA > Olah Nilai > <?php echo $isi->nama_matpel ;?> </div>
    
    
  
    <div class="span8">  
        
-       <p class="judul"><?php echo $title;?></p>
+       <p class="judul">Menu Pengolahan Nilai Mapel <?php echo $isi->nama_matpel ;?></p>
+       <a href="<?php echo base_url();?>index.php/mapelsaya/detil/<?php echo $isi->id_matpelguru;?>"><button class="btn btn-primary">Beranda Mapel</button></a>
        <p class="hrnya"></p>
-       <p><a href="<?php echo base_url();?>index.php/mapelsaya/daftar"><button class="btn btn-primary"><i class="icon-plus icon-white"></i>DAFTAR KE MATA PELAJARAN</button></a> <a href="<?php echo base_url();?>index.php/raport"><button class="btn btn-success"><i class="icon-archive icon-white"></i>e-Raport</button></a></p>
-   <table class="table table-bordered table-condensed table-hover table-striped bootstrap-datatable datatable">
-       <?php if (empty($isi)){
-       ?>
-       
-       
-       <?php
-       }else{
-          ?>
-       <thead>
-           
-           <th>
-               NO
-           </th>
-           <th>
-               MATA PELAJARAN
-           </th>
-           <th>
-           GURU PENGAMPU
-           </th>
-           <th>
-           TAHUN AJARAN
-           </th>
-           <th>
-           AKSI
-           </th>
-       </thead>
-       <tbody>
-           <?php
-           $no=1;
-           foreach ($isi as $d){
+       <div id="status" class="alert"></div>
+       <table class="table table-bordered table-mini table-condensed table-hover table-striped bootstrap-datatable datatable" id="EntryDeskripsi">
+        <thead>
+          <tr>
+            <th >NO</th>
+            <th >NIS</th>
+            <th >KELAS</th>
+            <th >NAMA LENGKAP</th>
+            <th >INFO</th>
+            <th >AKSI</th>
+            
+          </tr>
+          
+          
+        </thead>
+        <tbody>
+         <?php if (empty($list)){
+
+         }else{
+         	$no = 1;
+            foreach($list as $a ){
+            ?>
+            <tr>
+            	<td><?php echo $no++;?></td>
+                <td><?php echo $a->nis;?></td>
+                <td><?php echo $a->kelas;?></td>
+                <td><?php echo $a->nama_siswa;?></td>
+                <td>
                
-               ?>
-           <tr>
-               <td><?php echo $no++;?></td>
-               <td><?php echo $d->nama_matpel;?></td>
-               <td><?php echo $d->nama_guru;?></td>
-               <td><?php echo $d->tahun;?></td>
-               <td><a href="<?php echo base_url();?>index.php/mapelsaya/kurikulum/<?php echo $d->id_matpelguru;?>"><button class="btn btn-primary"><i class="icon-white icon-eye-open"></i>  LIHAT SILABUS</button></a>
-               <!-- 
-               <a class="btn btn-danger keluar" href="<?php echo base_url();?>index.php/mapelsaya/unregister/<?php echo $d->id_matpelguru;?>" data-confirm="Hapus Data?">
+                <a data-toggle="modal" href="#" data-href="<?php echo base_url();?>index.php/siswa/detil/<?php echo $a->id_siswa;?>" class="btn btn-primary"><i class="icon-search icon-round icon-white"> </i></a>
+                </td>
+                <td>
+                
+                <a class="btn btn-danger hapusTerdaftar" href="<?php echo base_url();?>index.php/mapelsaya/keluarkansiswa/<?php echo $a->id_matpelguru;?>/<?php echo $a->nis;?>" data-confirm="Hapus Data?">
 										<i class="icon-trash icon-white"></i> 
-										KELUAR
-									</a> -->
-               
-               <a href="<?php echo base_url();?>index.php/mapelsaya/nilai/<?php echo $d->id_matpelguru;?>"><button class="btn btn-info"><i class="icon-white icon-eye-open"></i>  NILAI</button></a>
-               </td>
-               
-           </tr>
-           
-           <?php
-           }
-           
-           ?>
-       </tbody>
-       
-           <?php 
-       }?>
-       
-           
-       
-   </table>
+										KELUARKAN SISWA
+									</a>
+                
+                </td>
+                
+            </tr>
+            <?php
+        }
+         }
+         ?>
+          
+        </tbody>
+       </table>
+
    </div>
                                     
    
@@ -319,9 +307,10 @@
     </div>
 </div>
 </body>
+
 <script type="text/javascript">
             
-$(document).on("click",".keluar",function(event){
+$(document).on("click",".hapusTerdaftar",function(event){
 //$(".delete").click(function(event){
      var alert = confirm("Keluar dari Mata Pelajaran?");
      
@@ -363,4 +352,5 @@ $(document).on("click",".keluar",function(event){
   });
 
             </script>
+
 </html>

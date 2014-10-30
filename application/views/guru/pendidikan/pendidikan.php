@@ -215,7 +215,7 @@
                <td><?php echo $d->lembaga_pendidikan;?></td>
                <td><?php echo $d->thn_mulai;?></td>
                <td><?php echo $d->thn_lulus;?></td>
-               <td><a href="<?php echo base_url();?>index.php/pendidikan/detil/<?php echo $d->id_rwpendidikan;?>"<button class="btn btn-success"><i class="icon-white icon-eye-open"></i>  LIHAT DATA</button></a>
+               <td><a href="<?php echo base_url();?>index.php/pendidikan/detil/<?php echo $d->id_rwpendidikan;?>"><button class="btn btn-success"><i class="icon-white icon-eye-open"></i>  LIHAT DATA</button></a>
                
                <a class="btn btn-danger delete" href="<?php echo base_url();?>index.php/pendidikan/hapus/<?php echo $d->id_rwpendidikan;?>" data-confirm="Hapus Data?">
 										<i class="icon-trash icon-white"></i> 

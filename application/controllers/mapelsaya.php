@@ -745,7 +745,7 @@ class Mapelsaya extends CI_Controller {
         if($this->session->userdata('username',TRUE) && $this->session->userdata('level')==='2'){
             $id = $this->uri->segment(3);
             $data['namaguru'] = $this->mdb->infouser();
-            $data['title'] = 'Olah Nilai Siswa';
+            $data['title'] = 'Olah Deskripsi Siswa';
             $id_guru = $this->mdb->infouser();
             $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
             $this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
@@ -808,7 +808,29 @@ class Mapelsaya extends CI_Controller {
         }
 
     }
-    
+    function keluarkansiswa(){
+    	if($this->session->userdata('username',TRUE)&& $this->session->userdata('level')==='2'){
+    		//ID MATPEL
+    		$id = $this->uri->segment(3);
+    		//id_siswa
+    		$nis = $this->uri->segment(4);
+    		//check Harus no
+    		
+    			//operasi hapus database
+    			$a = $this->db->delete('d_nilai',array('id_matpelguru'=>$id,'nis'=>$nis));
+    			if($a){
+    				echo "Sukses";
+    			}else{
+    				echo "Gagal";
+    			}
+    			
+    			
+    		
+    		
+    	}else{
+    		redirect('home','refresh');
+    	}
+    }
     function unregister(){
          if($this->session->userdata('username',TRUE)&& $this->session->userdata('level')==='3'){
              $id = $this->uri->segment(3);
@@ -829,6 +851,63 @@ class Mapelsaya extends CI_Controller {
          }else{
              echo "noLoginYet";
          }
+    }
+    
+    function terdaftar(){
+    	if($this->session->userdata('username',TRUE) && $this->session->userdata('level')==='2'){
+    		//melihat daftar siswa terdaftar
+    		$id = $this->uri->segment(3);
+    		$data['namaguru'] = $this->mdb->infouser();
+    		$data['title'] = 'Siswa terdaftar';
+    		$guru = $this->mdb->infouser();
+
+    		if (empty($id) || !is_numeric($id) ){
+    			redirect('home','refresh');
+    		}else{
+    			//validasi apakah matpel guru dan id guru
+    			$id_guru = $guru->id_guru;
+    			$this->db->join('d_nilai','d_nilai.id_matpelguru = d_matpelguru.id_matpelguru','inner');
+    			//$this->db->where(array('id_nilai'=>$id));
+    			//$this->mdb->gettable('d_matpelguru');
+    			$aa = $this->mdb->ambilBaris('d_matpelguru',array('d_matpelguru.id_matpelguru'=>$id));
+    			//$aa = $this->mdb->ambilBaris('d_nilai','id_nilai= $id');
+    			$da = $aa->id_guru;
+    			if($this->mdb->chkequal($id_guru,$da)){
+    				//echo "SESUAI";
+    				$this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+    				$this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
+    				$this->db->join('d_siswa','d_siswa.nis= d_nilai.nis','inner');
+    				$this->db->join('d_kelas','d_kelas.id_kelas = d_siswa.id_kelas','inner');
+    				$d = $this->db->get_where('d_nilai',array('d_matpelguru.id_matpelguru'=>$id));
+    				$data['isi'] = $d->row();
+    				$chk = $d->row();
+    				
+    				
+    				$this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+    				$this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
+    				$this->db->join('d_siswa','d_siswa.nis= d_nilai.nis','inner');
+    				$this->db->join('d_kelas','d_kelas.id_kelas = d_siswa.id_kelas','inner');
+    				//$d = $this->db->get_where('d_nilai',array('d_matpelguru.id_matpelguru'=>$id));
+    				$this->db->where(array('d_matpelguru.id_matpelguru'=>$id));
+    				$data['list'] = $this->mdb->gettable('d_nilai');
+    				$this->load->view('guru/mapel/terdaftar',$data);
+    				//echo json_encode($data['list'])
+    				
+    			}else{
+    				//redirect
+    				redirect('home','refresh');
+    				//echo "TIDAK SAMA";
+    				//echo '</p>';
+    				//echo $da;
+    				//echo '</p>';
+    				//echo $id_guru;
+    			}
+    			
+    		}
+    		
+    	}else{
+    		redirect('home','refresh');
+    	}
     }
 
 }

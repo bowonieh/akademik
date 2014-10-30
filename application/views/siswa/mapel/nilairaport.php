@@ -23,7 +23,7 @@
 .nilai {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     width: 100%;
-    border-collapse: collapse;
+    /*border-collapse: collapse;*/
 }
 
 .nilai td, .nilai th {
@@ -128,7 +128,7 @@
                 ?>
             <tr>
                 <td><?php echo $no++;?></td>
-                <td><?php echo $d->nama_matpel;?>
+                <td><?php echo $d->matpel;?>
                     <p>
                     (<?php echo $d->nama_guru;?>)
                     </p>
@@ -176,7 +176,7 @@
                 ?>
             <tr>
                 <td rowspan="3"><?php echo $no++;?></td>
-                <td rowspan="3"><?php echo $d->nama_matpel;?>
+                <td rowspan="3"><?php echo $d->matpel;?>
                     <p>( <?php echo $d->nama_guru ;?> )</p>
                 
                 

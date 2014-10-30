@@ -481,4 +481,18 @@ class Mdb extends CI_Model{
             $data = $q_array;
             return $data;
         }
+        
+        function ambilBaris($table,$key){
+        	$this->db->where($key);
+        	$a = $this->db->get($table);
+        	return $a->row();
+        }
+        
+        function chkequal($val1,$val2){
+        	if($val1 === $val2){
+        		return TRUE;
+        	}else {
+        		return FALSE;
+        	}
+        }
 }
