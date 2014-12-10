@@ -169,7 +169,7 @@
    
    
  
-   <div class="span8">  
+   <div class="span10">  
        
        <p class="judul">Menu Pengolahan Nilai Mapel <?php echo $isi->nama_matpel ;?></p>
        <a href="<?php echo base_url();?>index.php/mapelsaya/detil/<?php echo $isi->id_matpelguru;?>"><button class="btn btn-primary">Beranda Mapel</button></a>
@@ -182,8 +182,11 @@
             <th >NIS</th>
             <th >KELAS</th>
             <th >NAMA LENGKAP</th>
+            <th>Nilai Keterampilan</th>
             <th >Deskripsi Keterampilan</th>
+            <th>Nilai Pengetahuan</th>
             <th >Deskripsi Pengetahuan</th>
+            <th>Nilai Sikap</th>
             <th >Deskripsi Sikap</th>
           </tr>
           
@@ -199,8 +202,11 @@
                 <td><?php echo $a->nis;?></td>
                 <td><?php echo $a->kelas;?></td>
                 <td><?php echo $a->nama_siswa;?></td>
+                <td><?php echo $a->predikat_keterampilan;?></td>
                 <td id="keterangan_keterampilan:<?php echo $a->id_nilai;?>" contenteditable="true"><?php echo $a->keterangan_keterampilan;?></td>
+                <td><?php echo $a->predikat_pengetahuan;?></td>
                 <td id="keterangan_pengetahuan:<?php echo $a->id_nilai;?>" contenteditable="true"><?php echo $a->keterangan_pengetahuan;?></td>
+                <td><?php echo $a->predikat_sikap;?></td>
                 <td id="desc_kemajuan_belajar:<?php echo $a->id_nilai;?>" contenteditable="true"><?php echo $a->desc_kemajuan_belajar;?></td>
             </tr>
             <?php

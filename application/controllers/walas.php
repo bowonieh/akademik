@@ -5,7 +5,7 @@ class Walas extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model(array('msuratmasuk','mdb'));
-        $this->load->helper(array('text','form'));
+        $this->load->helper(array('text','form','math'));
         $this->load->library('dompdf_lib');   
         
         
@@ -121,8 +121,8 @@ class Walas extends CI_Controller {
                     $this->db->join('d_kelas','d_kelas.id_kelas = d_siswa.id_kelas','inner');
                     $data['siswa']= $this->mdb->gettable('d_siswa');
 
-                    //query jika nis diisi
-                    $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+            //query jika nis diisi
+            $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
             $this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
             $this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','inner');
             $this->db->join('d_siswa','d_siswa.nis = d_nilai.nis','inner');
@@ -132,6 +132,15 @@ class Walas extends CI_Controller {
             $this->db->order_by('r_matpel.id_katmapel','asc');
             $data['isi'] = $this->mdb->gettable('d_nilai');
             //=====================================
+            $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+            $this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
+            $this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','inner');
+            $this->db->join('d_siswa','d_siswa.nis = d_nilai.nis','inner');
+            $this->db->join('r_matpel','r_matpel.id_matpel = d_matpelguru.id_matpel','inner');
+            $this->db->join('r_kategori_matpel','r_kategori_matpel.id_katmapel = r_matpel.id_katmapel','inner');
+            $this->db->where(array('d_nilai.nis'=>$nis,'r_tahun.id_tahun'=>$id_tahun));
+            $this->db->order_by('r_matpel.id_katmapel','asc');
+            $data['jmh'] = $this->db->count_all_results('d_nilai');
             
             //walas
             $this->db->join('d_kelas','d_kelas.id_kelas = d_walas.id_kelas','inner');
@@ -160,7 +169,7 @@ class Walas extends CI_Controller {
                 $dompdf->load_html($html);
                 $dompdf->set_paper("A4","potrait");
                 $dompdf->render();
-                $dompdf->stream($namafile.".pdf", array("Attachment" => 1));                               
+                $dompdf->stream($namafile.".pdf", array("Attachment" => 0));                               
             
 
 
@@ -174,6 +183,20 @@ class Walas extends CI_Controller {
     function ekskul(){
         $nis = $this->uri->segment(3);
         $id_guru = $this->mdb->infouser();
+        //================================================== Check Id KElas
+        $this->db->where(array('nis'=>$nis));
+        $a = $this->db->get('d_siswa');
+        $d = $a->row();
+        //================================================== Check Id Kelas
+        $this->db->where(array('id_guru'=>$id_guru->id_guru));
+        $b = $this->db->get('d_walas');
+        $c = $b->row();
+        //==================================================
+        if($this->session->userdata('level')=== '2' && $this->mdb->chkwalas() === 1 && $d->id_kelas === $c->id_kelas ){
+        if(empty($nis)){
+        	redirect('walas','refresh');
+        }else{
+        
         $data['namaguru'] = $this->mdb->infouser();
         $data['title'] = 'Daftar Ekstrakulikuler';
         //==========================================================
@@ -200,11 +223,85 @@ class Walas extends CI_Controller {
         //=========================================================
         
         $this->load->view('guru/mapel/ekskulwalas',$data);
-        
+        	}
+        }else{
+        	redirect('walas','refresh');
+        }
+    }
+    function cetakguid(){
+    	echo guidv4(openssl_random_pseudo_bytes(16));
+    }
+    function antarmapeltambah(){
+    	$nis 		= $this->input->post('nis');
+    	$id_tahun 	= $this->input->post('id_tahun');
+    	$nilai 		= $this->input->post('nilai');
+    	$id_antarmapel = guidv4(openssl_random_pseudo_bytes(16));
+
+    	$d = $this->db->insert('d_antarmapel',array('id_antarmapel'=>$id_antarmapel,'nis'=>$nis,'id_tahun'=>$id_tahun,'nilai'=>$nilai));
+    	
+    	if($d){
+    		echo "Sukses";
+    	}else{
+    		echo "Gagak";
+    	}
+    	
+    }
+    
+    function antarmapeledit(){
+    	$nis 		= $this->input->post('nis');
+    	$id_tahun 	= $this->input->post('id_tahun');
+    	$nilai 		= $this->input->post('nilai');
+    	$id_antarmapel = $this->input->post('id_antarmapel');
+    	//$id_antarmapel = guidv4(openssl_random_pseudo_bytes(16));
+    
+    	//$d = $this->db->insert('d_antarmapel',array('id_antarmapel'=>$id_antarmapel,'nis'=>$nis,'id_tahun'=>$id_tahun,'nilai'=>$nilai));
+    	 $d = $this->db->update('d_antarmapel',array('nis'=>$nis,'nilai'=>$nilai,'id_tahun'=>$id_tahun),array('id_antarmapel'=>$id_antarmapel));
+    	if($d){
+    		echo "Sukses";
+    	}else{
+    		echo "Gagak";
+    	}
+    	 
     }
     
     function antarmapel(){
-        
+    	$nis = $this->uri->segment(3);
+    	$tahun = $this->mdb->getTahunAktif();
+    	$thn = $tahun->id_tahun;
+    	
+    	if($this->session->userdata('level')=== '2' && $this->mdb->chkwalas() === 1  ){
+    		$id_guru = $this->mdb->infouser();
+    		$data['namaguru'] = $this->mdb->infouser();
+    		$data['title'] = 'Daftar Ekstrakulikuler';
+    		$a = $this->mdb->chkexist('d_antarmapel',array('nis'=>$nis,'id_tahun'=>$thn));
+    		
+    		
+    		if($a === 0){
+    			$this->db->select(array('d_siswa.nis as no_induk','nama_siswa','nilai'));
+    			$this->db->where(array('d_siswa.nis'=>$nis));
+    			$this->db->join('d_antarmapel','d_siswa.nis = d_antarmapel.nis','left');
+    			$dd = $this->db->get('d_siswa');
+    			$data['dtl'] = $dd->row(); 
+    			$data['th'] = $thn;
+    			$this->load->view('guru/mapel/antartahunwalastambah',$data);
+    			
+    		}else{
+    			
+    			$this->db->select(array('d_siswa.nis as no_induk','id_antarmapel','nama_siswa','nilai'));
+    			$this->db->where(array('d_antarmapel.nis'=>$nis,'id_tahun'=>$thn));
+    			$this->db->join('d_siswa','d_siswa.nis = d_antarmapel.nis','left');
+    			$dd = $this->db->get('d_antarmapel');
+    			$data['dtl'] = $dd->row(); 
+    			$data['th'] = $thn;
+    			$data['antarmapel'] = $this->mdb->gettable('d_antarmapel');
+    			 
+    			$this->load->view('guru/mapel/antartahunwalasedit',$data);
+    		}
+    		
+    		
+    	}else{
+    		redirect('home','refresh');
+    	}
     }
     
 }

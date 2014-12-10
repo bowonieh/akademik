@@ -191,7 +191,7 @@
 							<div class="control-group">
 							  <label class="control-label" for="keterangan">Keterangan</label>
 							  <div class="controls">
-								<textarea  class="cleditor" id="keterangan" rows="10" cols="200"><?php echo $isi->ket_bayar;?>
+								<textarea  class="cleditor" id="keterangan" rows="10" cols="200"><?php echo $isi->keterangan;?>
                                                                 
                                                                </textarea>
 							  </div>

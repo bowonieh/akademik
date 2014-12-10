@@ -12,7 +12,10 @@
                   <div class="controls">
                       
                       <?php echo form_input('username','','class="input-large" id="username"');?>
+ 						<p><div class="pesan"></div></p>
+ 						<p><div class="pesan2"></div></p>                    
                       <?php echo form_hidden('user_id', $profil->user_id,'user_id');?>
+                      
                   </div>
               </div>
               
@@ -25,7 +28,7 @@
            <div id="infoAlert"></div>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="editUsername" data-proce="<?php echo base_url();?>index.php/profil/simpanusername">Simpan</button>
-        <p><div class="pesan"></div></p>
+        
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

@@ -29,6 +29,7 @@
 	<link href='<?php echo base_url();?>style/css/jquery.iphone.toggle.css' rel='stylesheet'>
 	<link href='<?php echo base_url();?>style/css/opa-icons.css' rel='stylesheet'>
 	<link href='<?php echo base_url();?>style/css/uploadify.css' rel='stylesheet'>
+	<link href='<?php echo base_url();?>style/css/pnotify.custom.min.css' rel='stylesheet'>
 	
 	
 </head>
@@ -59,7 +60,7 @@
                                 <div class="titlehr"></div>
                             </div>
                             <div class="isisubbox">
-                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/profilguru">PROFIL SAYA</a></div>
+                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/profil">PROFIL SAYA</a></div>
 							</div>
                             <div class="isisubbox">
                             	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/keluarga">DATA KELUARGA</a></div>
@@ -174,13 +175,14 @@
        <p class="judul"><?php echo $title;?></p>
        <p class="hrnya"></p>
        <div class="span8">
+       
            <div class="span2">
                <?php
                if (empty($profil->foto)){
                    echo "Tidak ada Foto";
                }else{
                    ?>
-               <img width="200px" src="<?php echo base_url();?>img/upload/<?php echo $profil->foto;?>" />
+               <img class="logo-center" width="190px" src="<?php echo base_url();?>img/upload/<?php echo $profil->foto;?>" />
                
                <?php
                }
@@ -348,6 +350,7 @@
 	<script src="<?php echo base_url();?>style/js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="<?php echo base_url();?>style/js/charisma.js"></script>
+	<script src="<?php echo base_url();?>style/js/pnotify.custom.min.js"></script>
 	
   <div id="footer">
       <script type="text/javascript">
@@ -384,11 +387,24 @@
                             //ganti Username
                             $("#username").live('keyup',function(z){
                             z.preventDefault();
-                            var href = 'checkusername';
+                            //$('#editUsername').hide();
+                            var href = 'profil/checkusername';
+                            var min_chars = 3;
+                            var characters_error = 'Minimum 4 Karakter';  
+                            var checking_html = 'Memeriksa...';  
                             var form_data2 = {
                                 id_guru : $('#id_guru').val(),
                                 username : $('#username').val()
                                 }
+                            if($('#username').val().length < min_chars){
+								$('.pesan').html(characters_error);  
+
+                           }else if(min_chars < $('#username').val().length ){
+				
+                        	   $('.pesan').html(checking_html);  
+                					      	    
+                               
+                           
                                 $.ajax({
                                    type: "POST",
                                    url: href,
@@ -396,21 +412,30 @@
                                    cache: false, 
                                    data: form_data2,
                                    success: function(response){
-                                       if(response === 'error'){
-                                            //disable tombol simpan
-                                       }else if(response === 'unik'){
-                                           
-                                       }
+                            			if (response === 'error'){
+                            				$('.pesan').html('Username Tidak Tersedia');
+			
+                            			}else if(response === 'unik'){
+                            				$('.pesan').html('Username Tersedia');
+
+                            			}           
+										
                                    }
                                 });
+
+                           }     
                             });
                             
                     $("#editUsername").live('click',function(e){
                             e.preventDefault();
                             var href = $(this).attr("data-proce");
+                            var redirect = "<?php echo base_url();?>index.php/keluar";
+                            var updated = "Username berhasil diupdate</p>Silahkan untuk login dengan user yang baru";
+                            var notupdated = "Username gagal diupdate";
+                            var userAda = "Username Sudah digunakan";
                             var form_data = {
-                                id_guru : $('#id_guru').val(),
-                                username : $('#username').val
+                                user_id : $('#user_id').val(),
+                                username : $('#username').val()
                             };
                             $.ajax({
                                 type: "POST",
@@ -419,12 +444,25 @@
                                 cache: false,
                                 data: form_data,
                                 success: function(response) {
-                                $('.modal').html(response);    
-                                //$(".modal").delay(10000).modal('hide');
-                                setTimeout(function() { $('.modal').modal('hide'); }, 10000);
-                                location.reload(true);
-           
-           
+										if(response === 'Updated'){
+											//$('.pesan').html(updated);
+											$('.pesan').html(updated);    
+											setTimeout(function() {
+												  window.location.href = redirect;
+												}, 2000);
+	                                        //$(".modal").delay(10000).modal('hide');
+	                                        //setTimeout(function() { $('.modal').modal('hide'); }, 10000);
+	                                        //location.reload(true);
+
+										}else if(response === 'notUpdated'){
+											//$('.pesan').html(notupdated);
+											$('.pesan').html(notupdated);
+
+										}else if (response === 'userExist'){
+											//$('.pesan').html(userAda);
+											$('.pesan').html(userAda);
+										}
+										           
                             }
                         });
                             

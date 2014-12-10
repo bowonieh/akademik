@@ -161,7 +161,7 @@ $("#tambahMapel").click(function(event){
                                 <div class="titlehr"></div>
                             </div>
                             <div class="isisubbox">
-                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/profilguru">PROFIL SAYA</a></div>
+                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/profil">PROFIL SAYA</a></div>
 							</div>
                             <div class="isisubbox">
                             	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/keluarga">DATA KELUARGA</a></div>

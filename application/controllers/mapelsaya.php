@@ -267,7 +267,71 @@ class Mapelsaya extends CI_Controller {
             redirect('home','refresh');
         }
     }
-    
+    function aksiedit(){
+    	if($this->session->userdata('username',TRUE) && $this->session->userdata('level')==='2' ){
+    		$guru           = $this->mdb->infouser();
+    		$id_matpelguru	= $this->input->post('id_matpelguru');
+    		$id_guru        = $guru->id_guru;
+    		$id_katmapel    = $this->input->post('id_katmapel');
+    		$id_matpel      = $this->input->post('id_matpel');
+    		$id_tahun       = $this->input->post('id_tahun');
+    		$nama_matpel    = $this->input->post('nama_matpel');
+    		if (empty($id_katmapel)|| empty($id_matpel)|| empty($id_tahun) || empty($nama_matpel)){
+    			echo "ErrorForm";
+    		}else{
+    			//if($this->mdb->chkexist('d_matpelguru',array('id_guru'=>$id_guru,'id_matpel'=>$id_matpel,'id_tahun'=>$id_tahun,'nama_matpel'=>$nama_matpel)) >= 1){
+    	
+    				//echo 'dataDouble';
+    	
+    			//}else{
+    				//$sql = $this->db->insert('d_matpelguru',array('id_guru'=>$id_guru,'id_matpel'=>$id_matpel,'id_tahun'=>$id_tahun,'nama_matpel'=>$nama_matpel));
+    				
+    				
+    				$sql = $this->db->update('d_matpelguru',array('id_guru'=>$id_guru,'id_matpel'=>$id_matpel,'id_tahun'=>$id_tahun,'nama_matpel'=>$nama_matpel),array('id_matpelguru'=>$id_matpelguru));
+    	
+    				if($sql){
+    					echo 'Success';
+    				}else{
+    					echo "errorInput";
+    				}
+    			//}
+    	
+    		}
+    	
+    	
+    	
+    	}else{
+    		echo "Error";
+    	}
+    	 
+    	
+    }
+    function edit(){
+    	$id= $this->uri->segment(3);
+    	if($this->session->userdata('username',TRUE) && $this->session->userdata('level')==='2' ){
+    		$data['infouser'] = $this->mdb->infouser();
+            $data['namaguru']= $this->mdb->infouser();
+            $data['title'] = "TAMBAH MATA PELAJARAN SAYA";
+            $data['kat_mapel']= $this -> mdb -> get_katmapel();
+            $data['tahun']= $this -> mdb -> getTahun();
+            $id_guru = $this->mdb->infouser();
+            
+    		$data['title']= "Edit Mata Pelajaran";
+    		$this->db->join('r_matpel','r_matpel.id_matpel = d_matpelguru.id_matpel','left');
+    		$this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','left');
+    		$this->db->join('r_kategori_matpel','r_kategori_matpel.id_katmapel=r_matpel.id_katmapel','inner');
+    		$data['mapel'] = $this->mdb->getDetil('d_matpelguru',array('id_matpelguru'=>$id));
+    		 
+    		$this->db->where(array('id_matpelguru'=>$id));
+    		 
+    		//$data['kelasikut']= $this->mdb->gettable('d_kelasmatpel');
+    		if($data['mapel']->id_guru === $data['infouser']->id_guru){
+    			$this->load->view('guru/mapel/edit',$data);
+    		}
+    	}else{
+    		redirect('home','refresh');
+    	}
+    }
     function berinilai(){
         $id = $this->uri->segment(3);
             if($this->session->userdata('username',TRUE) && $this->session->userdata('level')==='2' ){

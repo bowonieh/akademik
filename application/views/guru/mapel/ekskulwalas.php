@@ -48,9 +48,9 @@
   </div>
     <!-- MENU -->
     <ul id="navigasi">
-    	<li class="navigasibutton">
+    	<li class="navigasibutton"><a href="<?php echo base_url();?>">
             <div class="navigasigambar" align="center"><img src="<?php echo base_url();?>style/guru/images/g_beranda.png" class="gambarnyanavigasi"></div>
-            <div class="navigasitulisan" align="center">BERANDA</div>
+            <div class="navigasitulisan" align="center">BERANDA</div></a>
         </li>
         <li class="navigasibutton">
           <div class="navigasigambar" align="center"><img src="<?php echo base_url();?>style/guru/images/g_profil.png" class="gambarnyanavigasi"></div>
@@ -61,7 +61,7 @@
                                 <div class="titlehr"></div>
                             </div>
                             <div class="isisubbox">
-                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/profil">PROFIL SAYA</a></div>
+                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/profilguru">PROFIL SAYA</a></div>
 							</div>
                             <div class="isisubbox">
                             	<div class="isisubmenu">DATA KELUARGA</div>
@@ -117,7 +117,7 @@
                                 <div class="titlehr"></div>
                             </div>
                             <div class="isisubbox">
-                            	<div class="isisubmenu">KELAS BIMBINGAN</div>
+                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/walas">KELAS BIMBINGAN</a></div>
 							</div>
                             <div class="isisubbox">
                             	<div class="isisubmenu">INFORMASI KELAS & SISWA</div>

@@ -25,6 +25,15 @@ function index(){
         
         
     }
+    function update(){
+    	$nis = $this->uri->segment(3);
+    	$id = $this->uri->segment(4);
+    	$id_walas = $this->mdb->idwalas();
+    	$this->db->where(array('nis'=>$nis));
+    	$a = $this->db->get('d_siswa');
+    	$d = $a->row();
+    	echo $d->id_kelas;
+    }
     function simpan(){
         $id_tahun = $this->input->post('id_tahun');
         $id_ekskul = $this->input->post('id_ekskul');

@@ -23,7 +23,7 @@
 .nilai {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     width: 100%;
-    /*border-collapse: collapse;*/
+    border-collapse: collapse;
 }
 
 .nilai td, .nilai th {

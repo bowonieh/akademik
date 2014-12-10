@@ -242,7 +242,7 @@
    <div class="map">Guru > Wali Kelas <?php echo $dtl->kelas;?></div>
    
    
-   <div class="span8">  
+   <div class="span10">  
        <div>
            MENU Wali Kelas
        </p>
@@ -297,8 +297,9 @@
                        <td><?php echo $as->jenkel;?></td>
                        <td><?php echo $as->nama_siswa;?></td>
                        <td>
-                          <!--<button class="btn btn-primary">Sikap Antar Mapel </button>
-                           <a href="<?php echo base_url();?>index.php/walas/ekskul/<?php echo $as->nis;?>"><button class="btn btn-success">Ekskul </button></a>-->
+                          <!--<button class="btn btn-primary">Sikap Antar Mapel </button>-->
+                           <a href="<?php echo base_url();?>index.php/walas/ekskul/<?php echo $as->nis;?>"><button class="btn btn-success">Ekskul </button></a>
+                           <a href="<?php echo base_url();?>index.php/walas/antarmapel/<?php echo $as->nis;?>"><button class="btn btn-secondary">Nilai Antar Mapel </button></a>
                            <a href="<?php echo base_url();?>index.php/walas/nilaiproses/<?php echo $as->nis;?>"><button class="btn btn-primary">Nilai Proses </button></a>
                            <a href="<?php echo base_url();?>index.php/walas/nilairaport/<?php echo $as->nis;?>"><button class="btn btn-danger">Nilai Raport </button></a>
                        </td>

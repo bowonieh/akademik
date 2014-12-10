@@ -173,7 +173,7 @@ class Pembayaran extends CI_Controller {
             'tanggal_bayar'  => $this->input->post('tanggal_bayar'),
             'id_tagihan'     => $this->input->post('id_tagihan'),
             'jumlah_bayar'   => $this->input->post('jumlah_bayar'),
-            'ket_bayar'   => $this->input->post('keterangan')    
+            'keterangan'   => $this->input->post('keterangan')    
             );
             $a = $this->mdb->chkexist('d_pembayaran',$input);
             if ($a=== 0 ){
@@ -202,7 +202,7 @@ class Pembayaran extends CI_Controller {
             'tanggal_bayar'  => $this->input->post('tanggal_bayar'),
             'id_tagihan'     => $this->input->post('id_tagihan'),
             'jumlah_bayar'   => $this->input->post('jumlah_bayar'),
-            'ket_bayar'   => $this->input->post('keterangan')    
+            'keterangan'   => $this->input->post('keterangan')    
             );
            
             $d = $this->db->update('d_pembayaran', $input, array('id_pembayaran'=>$this->input->post('id_pembayaran')));

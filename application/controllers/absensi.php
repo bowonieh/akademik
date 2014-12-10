@@ -21,8 +21,9 @@ class Absensi extends CI_Controller {
         function getrkpabsen(){
          
 	 //$query = $this->db->query("select distinct(jenismapel.jenismapel) as jns , count(mapel.mapel) as jmlmapel from mapel,jenismapel where mapel.id_jenismapel = jenismapel.id_jenismapel group by jenismapel.jenismapel");
-	 $query = $this->db->query("SELECT distinct(d_absensi.alasan)  as alasan ,(SELECT count(nis) from d_siswa where d_siswa.nis=d_absensi.nis) as jml from d_absensi");
-	 foreach ($query->result_array() as $r){
+	 //$query = $this->db->query("SELECT distinct(d_absensi.alasan)  as alasan ,(SELECT count(d_siswa.nis) from d_siswa where d_siswa.nis=d_absensi.nis) as jml from d_absensi");
+	 $query = $this->db->query("SELECT DISTINCT(d_absensi.alasan) AS alasan , count(d_siswa.nis) as jml from d_absensi,d_siswa where d_absensi.tanggal = curdate() AND d_absensi.nis = d_siswa.nis group by d_absensi.alasan");
+      foreach ($query->result_array() as $r){
 			$dt[] = array (
 				'alasan' => $r['alasan'],
 				'jml' => $r['jml']
@@ -38,6 +39,19 @@ class Absensi extends CI_Controller {
 		echo json_encode($dt);
                 }
         }
+        
+        function getabsenrange($x,$y){
+        	if (empty($x) || empty($y)){
+        		$query = $this->db->query("SELECT * FROM d_absensi");
+        	}else{
+        		$query = $this->db->query("SELECT * FROM d_absensi WHERE tanggal >= $x  AND tanggal <= $y");
+        	}
+        	
+        	foreach($query->result_array() as $r){
+        		echo json_encode($r);
+        	}
+        }
+        
         
         function tambah(){
             if($this->session->userdata('username') && $this->session->userdata('level') === '112'){
@@ -62,11 +76,20 @@ class Absensi extends CI_Controller {
                       //  redirect('absensi/tambah','refresh');
                     //}else{
                         //$this->mdb->tambahabsensi();
+                        $id_tahun = $this->input->post('id_tahun');
                         $nis = $this->input->post('nis');
                         $tanggal = $this->input->post('tanggal');
                         $alasan = $this->input->post('alasan');
-                        $this->mdb->insert('d_absensi',array('nis'=>$nis,'tanggal'=>$tanggal,'alasan'=>$alasan));
-                        redirect('absensi/tambah','refresh');
+                        //$a = $this->mdb->insert('d_absensi',array('id_tahun'=>$id_tahun,'nis'=>$nis,'tanggal'=>$tanggal,'alasan'=>$alasan,));
+                        $a = $this->db->insert('d_absensi',array('id_tahun'=>$id_tahun,'nis'=>$nis,'tanggal'=>$tanggal,'alasan'=>$alasan,));
+                        
+                        //redirect('absensi/tambah','refresh');
+                        if($a){
+                        	echo "Berhasil";
+                        	
+                        }else{
+                        	echo "Gagal";
+                        }
                    // }
                 }
             }else{
@@ -242,6 +265,25 @@ function getsiswa(){
         $this->load->view('absensi/hasilcari',$data);
         }
     }
+    }
+    
+    function ambilabsen(){
+    	
+    	$tgl_awal = $this->input->post('tgl_awal');
+    	$tgl_akhir = $this->input->post('tgl_akhir');
+    	if(empty($tgl_awal) || empty($tgl_akhir) ){
+    		
+    	}else{
+    	
+    	//$this->db->where('tanggal BEtWEEN '.strtotime($tgl_awal).'and "'.strtotime($tgl_akhir).'"');
+    	$this->db->join('d_siswa','d_siswa.nis = d_absensi.nis','inner');
+    	$this->db->join('d_kelas','d_kelas.id_kelas = d_siswa.id_kelas','inner');
+    	$this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($tgl_awal)). '" and "'. date('Y-m-d', strtotime($tgl_akhir)).'"');
+    	$dd = $this->mdb->gettable('d_absensi');
+    	$data['isi'] = $dd;
+    	$this->load->view('absensi/absensireport',$data);
+    	//echo json_encode($dd);
+    	}
     }
 
 }

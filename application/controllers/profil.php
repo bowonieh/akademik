@@ -89,10 +89,16 @@ class Profil extends CI_Controller {
         function editusername(){
             if ($this->session->userdata('level')==='2'){
             $info_guru = $this->mdb->infouser();
-            $this->db->join('d_user','d_guru.user_id = d_guru.user_id','inner');
-            $this->db->where(array('d_guru.id_guru'=>$info_guru->id_guru));
-            $a = $this->db->get('d_guru');
-            $data['profil'] = $a->row();
+                $data['namaguru'] = $this->mdb->infouser();
+                $this->db->join('r_jenis_ptk','d_guru.id_jenisptk = r_jenis_ptk.id_jenisptk','left');
+                $this->db->join('r_sttus_kepegawaian','d_guru.id_stts_kepeg = r_sttus_kepegawaian.id_stts_kepeg','left');
+                $this->db->join('d_user','d_user.user_id = d_guru.user_id','inner');
+                $this->db->where(array('d_guru.id_guru'=>$info_guru->id_guru));
+                $a = $this->db->get('d_guru');
+                $data['profil'] = $a->row();
+                $data['title']= 'PROFIL SAYA';
+                $data['jenisptk'] = $this->mdb->getJenisPTK();
+                $data['statusptk'] = $this->mdb->getSttsPTK();
             $this->load->view('profil/editusername',$data);
             }
         }
@@ -109,6 +115,34 @@ class Profil extends CI_Controller {
             }
             
         }
+        //Belum Beres==============================
+        function simpanusername(){
+        	if ($this->session->userdata('level')==='2'){
+        		$username = $this->input->post('username');
+        		//$user_id =  $this->input->post('user_id');
+        		$guru = $this->mdb->infouser();
+        		$user_id = $guru->user_id;
+        		$z = $this->mdb->chkexist('d_user',array('username'=>$username));
+        	
+        		if($z > 0 ){
+        			//echo "error";
+        			//jika error jalankan ini
+        			echo "userExist";
+        			//echo $d;
+        		}else{
+        			//echo "unik";
+        			
+        			$x = $this->db->update('d_user',array('username'=>$username),array('user_id'=>$user_id));
+        			if ($x){
+        				echo "Updated";
+        				//redirect('keluar','refresh');
+        			}else{
+        				echo "notUpdated";
+        			}
+        		}
+        	}
+        }
+        //=============================================
         function simpanpassword(){
             if ($this->session->userdata('level')==='2'){
                 //untuk proses guru

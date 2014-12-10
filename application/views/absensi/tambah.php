@@ -202,7 +202,7 @@
                
                 </label>
                     <label class="radio">
-                <input type="radio" name="alasan" id="optionsRadios1" value="Tanpa Keterengan"> Tanpa Keterangan
+                <input type="radio" name="alasan" id="optionsRadios1" value="Tanpa Keterangan"> Tanpa Keterangan
                
                 </label>
                     <label class="radio">

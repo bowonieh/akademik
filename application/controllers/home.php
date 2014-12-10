@@ -36,6 +36,7 @@ class Home extends CI_Controller {
             //halaman siswa
             $data['title'] = "HALAMAN SISWA ";
             $data['namasiswa']= $this->mdb->infosiswa();
+            $this->db->order_by('id_event','desc');
             $data['event'] = $this->mdb->gettable('d_event');
             $this->load->view('home/siswa/beranda',$data);
         }elseif($this->session->userdata('username') && $this->session->userdata('level') === '110'){
@@ -43,7 +44,7 @@ class Home extends CI_Controller {
             $data['title'] = "HALAMAN Administrasi Keuangan ";
             $this->load->view('home/tukeuangan',$data);
         }elseif($this->session->userdata('username') && $this->session->userdata('level') === '111'){
-            //halaman siswa
+            //halaman kurikulum
             $data['title'] = "HALAMAN Administrasi Kurikulum ";
             $this->load->view('admin/kurikulum/home',$data);
         }elseif($this->session->userdata('username') && $this->session->userdata('level') === '112'){
@@ -51,6 +52,7 @@ class Home extends CI_Controller {
             $today = date('Y-m-d');
             $this->db->join('d_siswa','d_siswa.nis= d_absensi.nis','inner' );
             $this->db->where(array('d_siswa.tanggal'=>$today));
+            
             
             
             $this->load->view('absensi/home',$data);

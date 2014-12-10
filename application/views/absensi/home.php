@@ -62,7 +62,7 @@
 
          type:"POST",
 
-         url: "absensi/getrkpabsen",
+         url: "<?php echo base_url();?>index.php/absensi/getrkpabsen",
 
          cache:false,
 
@@ -247,7 +247,46 @@
 
 			
 			
+			<div class="">
+				<div class="box span12">
+				<div class="box-header well" data-original-title>
+					<h2><i class="icon-mail-alt"></i> Detil berdasarkan tanggal</h2>
+					
+					
+					
+				</div>
+				<div class="box-content">
+	
+						<form class="">
+						<div class="form-group">
+							<label class="control-label">Tanggal Awal</label>
+							<div class="controls">  
+                					<input type="text" style="display:inline;" name="tgl_awal" id="tgl_awal" class="datepicker" />
+                    			 
+                				</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label">Tanggal Akhir</label>
+							<div class="controls">  
+                							<input type="text" name="tgl_akhir" id="tgl_akhir" class="datepicker" />
+                    			 
+                				</div>
+						</div>
+						<div class="form-actions">  
+                    			<button type="submit" id="btnAbsensi" class="btn btn-primary" href="<?php echo base_url();?>index.php/absensi/ambilabsen" data-loading-text="Sedang Menyimpan" >Lihat</button>  
+                    			<button type="reset" class="btn">Batal</button>  
+                			</div>
+						</form>
+						
+							<div id="rangeAbsen" class="span12">
+						
+						
+							</div>
+					</div>
+				</div>
 			
+			</div>
 			
 			
     
@@ -257,20 +296,7 @@
 				
 		<hr>
                     
-		<div class="modal hide fade" id="myModal">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3>Settings</h3>
-			</div>
-			<div class="modal-body">
-				<p>Here settings can be configured...</p>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary">Save changes</a>
-			</div>
-		</div>
-
+		
 		<footer>
 			<p class="pull-left">&copy; <a href="http://usman.it" target="_blank">Agus Wibowo</a> 2014</p>
 			
@@ -358,4 +384,42 @@
 	<script type="text/javascript" src="<?php echo base_url();?>assets/js/jchart/jchartfx.animation.js"></script>
 		
 </body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#btnAbsensi").click(function(e){
+				e.preventDefault();
+				var href 		= $(this).attr('href');
+				var form_data 	= {
+					tgl_awal 	: $('#tgl_awal').val(),
+					tgl_akhir 	: $('#tgl_akhir').val(),
+					ajax		: '1'
+				}; 
+				$.ajax({
+					type	: 'POST',
+					url		: href,
+					async	: false,
+					cache	: false,
+					data	: form_data,
+					success : function(data){
+						
+				            //$(btn).fadeOut(500);
+				            //$('#formUN').slideUp(100);
+				            //$('#hasilPencarian').slideDown();
+				            $('#rangeAbsen').slideDown();
+				            $('#rangeAbsen').html(data);
+				            //$("#btnSubmit").fadeIn(500);
+				             
+				            
+				            
+
+
+						}
+
+
+				});
+
+
+			});
+		});
+	</script>	
 </html>

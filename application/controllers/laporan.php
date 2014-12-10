@@ -5,7 +5,7 @@ class Laporan extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model(array('msuratmasuk','mdb'));
-        
+        $this->load->library(array('adodb_loader'));
         $this->load->helper(array('url','text','form','php-excel'));
         
         
@@ -41,6 +41,62 @@ class Laporan extends CI_Controller {
              redirect('home','refresh');
          }
         
+    }
+    public function simpleHtmlTable($data)
+    {
+    	// do you like spaghetti?
+    	echo "<table border='1'>";
+    	echo "<thead>";
+    	foreach (array_keys($data[0]) as $item) {
+    	echo "<td><b>{$item}<b></td>";
+    	}
+    	echo "</thead>";
+    	foreach ($data as $row) {
+    	echo "<tr>";
+    	foreach ($row as $item) {
+    	echo "<td>{$item}</td>";
+    	}
+    		echo "</tr>";
+    	}
+    	echo "</table>";
+    	}
+    
+    
+    function downloadpivot(){
+		//$this->adodb->connect('localhost','siakad','siakad3214','dbakademik');
+		//PivotTableSQL($db, $tables, $rowfields, $colfield)
+		$db = ADONewConnection('mysql');
+	    $db->Connect('localhost', 'siakad', 'siakad3214', 'dbakademik');
+	    //$db->debug = true;
+		
+		$d = PivotTableSQL($db, 'd_siswa,d_kelas,r_biaya,d_pembayaran', 'd_siswa.nama_siswa', 
+				
+				'r_biaya.nama_tagihan',
+				'd_siswa.id_kelas = d_kelas.id_kelas AND 
+				d_pembayaran.nis = d_siswa.nis AND d_pembayaran.id_tagihan = r_biaya.id_tagihan','tanggal_bayar',$sumlabel='',$aggfn ='', $showcount = FALSE);
+		
+				$recordset =& $this->adodb->query($d);
+		
+				rs2html($recordset);
+			   //echo json_encode($recordset);
+				//echo $recordset;
+			   $recordset->Close();
+    }
+    function report(){
+    	//header
+    	$this->db->select(array('nama_tagihan'));
+    	$this->db->order_by('nama_tagihan');
+    	$data['header'] = $this->mdb->gettable('vw_pembayaran');
+    	//nama_siswa
+    	$this->db->select(array('siswa'));
+    	$data['nama'] = $this->mdb->gettable('vw_pembayaran');
+    	//isi
+    	
+    	$this->db->select(array('tanggal_bayar'));
+    	//$this->db->order_by('nama_tagihan');
+    	$data['tgl'] = $this->mdb->gettable('vw_pembayaran');
+    	
+    	$this->load->view('admin/keuangan/pivot.php',$data);
     }
     function download(){
         $no = 1;

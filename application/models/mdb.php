@@ -125,6 +125,13 @@ class Mdb extends CI_Model{
         return $a->num_rows();
         
     }
+    function idwalas(){
+    	$id_guru = $this->infouser();
+    	$tahun_aktif = $this->getTahunAktif();
+    	$this->db->where(array('id_guru'=>$id_guru->id_guru,'id_tahun' => $tahun_aktif->id_tahun));
+    	$a = $this->db->get('d_walas');
+    	return $a->row();
+    }
     function chkekskul(){
         $id_tahun = $this->input->post('id_tahun');
         $id_ekskul = $this->input->post('id_ekskul');
@@ -214,8 +221,8 @@ class Mdb extends CI_Model{
        return $ambil;
     }
     function infouser(){
-        $a = $this->session->userdata('username');
-        $this->db->where(array('username'=>$a));
+        $a = $this->session->userdata('user_id');
+        $this->db->where(array('d_user.user_id'=>$a));
         $this->db->join('d_guru','d_guru.user_id = d_user.user_id','inner');
         $d = $this->db->get('d_user');
         $as = $d->row();

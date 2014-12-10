@@ -14,6 +14,31 @@ function cekno1($array){
     echo array_filter($array,'strlen');
    
 }
+ 
+function getGUID(){
+	if (function_exists('com_create_guid')){
+		return com_create_guid();
+	}else{
+		mt_srand((double)microtime()*10000);
+		$charid = strtoupper(md5(uniqid(rand(),true)));
+		$hyphen = chr(45);//"-"
+		$uuid   = chr(123) //"{"
+					.substr($charid,0,8).$hyphen
+					.substr($charid,8,4).$hyphen
+					.substr($charid,12,4).$hyphen
+					.substr($charid,16,4).$hyphen
+					.substr($charid,20,12).$hyphen
+					.chr(125);//"}"
+		return $uuid;
+	}
+}
+
+function guidv4($data){
+	assert(strlen($data)== 16);
+	$data[6] = chr(ord($data[6]) & 0x0f | 0x40 );
+	$data[8] = chr(ord($data[8]) & 0x3f | 0x80 );
+	return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data),4));
+}
 
 
 // pusing coyyy hahahah
