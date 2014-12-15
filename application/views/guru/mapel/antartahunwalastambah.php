@@ -31,6 +31,7 @@
 	<link href='<?php echo base_url();?>style/css/uploadify.css' rel='stylesheet'>
 	<!--script -->
         <script src="<?php echo base_url();?>style/js/jquery-1.7.2.min.js"></script>
+        <link href='<?php echo base_url();?>style/css/pnotify.custom.min.css' rel='stylesheet'>
         
 	
 </head>
@@ -167,7 +168,7 @@
   
   <div id="kontenbody">
       
-   <div class="map">Guru > Antar Tahun</div>
+   <div class="map">Guru > walas >Antar Mapel</div>
    
    
    <div class="span8">  
@@ -178,6 +179,10 @@
        </div>
        <div>
 				<div class="box-content">
+									<div><a href="<?php echo base_url();?>index.php/walas"><button class="btn btn-primary">Menu Walas</button></a></div>
+                                           <p></p>
+                                           <p></p>
+                                           <p></p>
                                            
                                             <div class="tambahPembayaran">
                                                 <form class="form-horizontal">
@@ -204,7 +209,7 @@
 							</div>
 							<div class="form-actions">
 							  <button id="btnSimpanAntarMapel" data-url="<?php echo base_url();?>index.php/walas/antarmapeltambah" class="btn btn-primary">Simpan</button>
-							  <button type="reset" class="btn">Cancel</button>
+							  <a href="<?php echo base_url();?>index.php/walas"><button type="reset" class="btn">Kembali</button></a>
 							</div>
 						  </fieldset>
 						</form>
@@ -292,6 +297,7 @@
 	<script src="<?php echo base_url();?>style/js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="<?php echo base_url();?>style/js/charisma.js"></script>
+	<script src="<?php echo base_url();?>style/js/pnotify.custom.min.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 	    $('#btnSimpanAntarMapel').live('click',function(a){
@@ -311,12 +317,12 @@
 	        cache: false,
 	        data: form_data,
 	        success: function(response) {
-	            $('.alert').show();
-	           $('.alert').html(response);    
-	           //$(".modal").delay(10000).modal('hide');
-	           setTimeout(function() { $('.alert').modal('hide'); }, 10000);
-	           //location.reload(true);
-	           
+	        	new PNotify({
+	                   title: 'Berhasil',
+	                   type: 'success',
+	                   text: response
+	               });
+	           setTimeout(function(){window.location.replace("<?php echo base_url();?>index.php/walas");},9000);
 	           
 	        	}
 	                

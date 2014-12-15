@@ -6,7 +6,7 @@ class Walas extends CI_Controller {
         parent::__construct();
         $this->load->model(array('msuratmasuk','mdb'));
         $this->load->helper(array('text','form','math'));
-        $this->load->library('dompdf_lib');   
+        $this->load->library(array('dompdf_lib'));   
         
         
     }
@@ -132,6 +132,7 @@ class Walas extends CI_Controller {
             $this->db->order_by('r_matpel.id_katmapel','asc');
             $data['isi'] = $this->mdb->gettable('d_nilai');
             //=====================================
+            
             $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
             $this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
             $this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','inner');
@@ -149,7 +150,10 @@ class Walas extends CI_Controller {
             $this->db->where(array('d_siswa.nis'=>$nis));
             $da = $this->db->get('d_walas');
             $data['walas'] = $da->row();
-            
+            //Antar Mapel
+            $this->db->where(array('nis'=>$nis,'id_tahun'=>$id_tahun));
+            $a = $this->db->get('d_antarmapel');
+            $data['am'] = $a->row();
             
             //Detil
             $this->db->join('d_nilai','d_nilai.nis=d_siswa.nis','left');
@@ -162,17 +166,16 @@ class Walas extends CI_Controller {
             $dd = $this->db->get(array('d_siswa','r_tahun'));
             $data['dtl'] = $dd->row(); 
             //============
-                $html = $this->load->view('siswa/mapel/nilairaport',$data,true);
+            //$this->load->view('siswa/mapel/nilairaport1',$data);
+                $html = $this->load->view('siswa/mapel/nilairaport1',$data,true);
                 $namafile = "".$data['dtl']->nama_siswa." nilai_raport ". date('Y-m-d')."";
                 $dompdf = new DOMPDF();
                 $dompdf->add_info('Title', 'e-Raport Siakad SMK Negeri 1 Kota Bekasi');
                 $dompdf->load_html($html);
-                $dompdf->set_paper("A4","potrait");
+                $dompdf->set_paper("F4","potrait");
                 $dompdf->render();
-                $dompdf->stream($namafile.".pdf", array("Attachment" => 0));                               
+                $dompdf->stream($namafile.".pdf", array("Attachment" => 1));                               
             
-
-
                 }
 
             }else{

@@ -25,6 +25,32 @@ function index(){
         
         
     }
+    function nilai(){
+    	$nis = $this->uri->segment(3);
+    	$id = $this->uri->segment(4);
+    	$data['nis'] = $nis;
+    	$this->db->where(array('d_ekskul_siswa.nis'=>$nis,'id_ekskul'=>$id));
+    	$this->db->join('d_ekskul_siswa','d_ekskul_siswa.nis=d_siswa.nis','inner');
+    	$ds = $this->db->get('d_siswa');
+    	$data['siswa'] = $ds->row();
+    	$data['tahun'] = $this->mdb->getTahun();
+    	$data['ekskul'] = $this->mdb->getEkskul();
+    	$this->load->view('guru/mapel/nilaiekskul',$data);
+    }
+    
+    function nilaisimpan(){
+    	$id_eks = $this->input->post('id_eks');
+    	$data = array(
+    			'keterangan' => $this->input->post('keterangan')
+    			);
+    	$d = $this->db->update('d_ekskul_siswa', $data, array('id_eks'=>$id_eks));
+    	if ($d){
+    		echo "Sukses";
+    	}else{
+    		echo "Gagal memasukkan Nilai";
+    	}
+    }
+    
     function update(){
     	$nis = $this->uri->segment(3);
     	$id = $this->uri->segment(4);
@@ -50,6 +76,12 @@ function index(){
             echo "<div class='alert'>Data Sama Ditemukan</div>";
         }
     }
-    
+    function hapus(){
+    	$id_eks = $this->uri->segment(3);
+    	$a = $this->db->delete('d_ekskul_siswa',array('id_eks'=>$id_eks));
+    	if($a){
+    		echo "Sukses";
+    	}
+    }
     
 }

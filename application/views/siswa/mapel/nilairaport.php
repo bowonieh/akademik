@@ -23,23 +23,27 @@
 .nilai {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     width: 100%;
-    border-collapse: collapse;
+   	/*border-collapse: collapse;*/
+    
+    
 }
 
 .nilai td, .nilai th {
     font-size: 0.5em;
-    border: 1px solid #98bf21;
-    padding: 3px 7px 2px 7px;
+    border: 1px dotted #000000;
+    padding: 2px 4px 2px 4px;
+    margin : 0px 0px 0px 0px;
 }
 
 .nilai th {
-    font-size: 0.9em;
+    font-size: 0.7em;
     text-align: center;
     padding-top: 5px;
     padding-bottom: 4px;
-    background-color: #A7C942;
+    background-color: #CCABCC;
     color: #ffffff;
 }
+
 
 .nilai tr.alt td {
     color: #000000;
@@ -96,6 +100,57 @@
 <div >
     <br>
     <table class="nilai">
+    <thead>
+    <tr>
+                <th rowspan="2" class="listNo">NO</th>
+                <th rowspan="2" class="mapel">Mata Pelajaran</th>
+                <th>Pengetahuan</th>
+                <th>Keterampilan</th>
+                <th>Sikap Spiritual dan Sosial</th>
+                
+            </tr>
+            <tr>
+                
+                <th>Predikat<br>(D-A)</th>
+                
+                <th>Predikat<br>(D-A)</th>
+                
+                <th>Dalam Mapel<br>(SB,B,C,K)</th>
+                
+            </tr>
+        
+    </thead>
+    <tbody>
+		<?php 
+            $no = 1;
+            if(empty($isi)){
+
+            }else{
+            foreach ($isi as $d){
+                
+                ?>
+            <tr>
+                <td><?php echo $no++;?></td>
+                <td><?php echo $d->matpel;?>
+                    <p>
+                    (<?php echo $d->nama_guru;?>)
+                    </p>
+                </td>
+                <td align="center"><?php echo $d->predikat_pengetahuan;?></td>
+                <td align="center"><?php echo $d->predikat_keterampilan;?></td>
+                <td align="center"><?php echo kriteria($d->nilai_raport);?></td>
+
+            	
+            </tr>
+            <?php
+                }
+            }?>
+            
+    </tbody>
+    
+    </table>
+    <!-- 
+    <table class="nilai">
         <thead>
         
             <tr>
@@ -148,6 +203,9 @@
             }?>
         </tbody>
     </table>
+    -->
+    <p></p>
+    <p></p>
     
     <p></p>
     <p></p>

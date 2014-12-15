@@ -8,11 +8,11 @@
     ?>
 
 <div>
-
+<!-- 
     <div class="rightalign">
         <a href="<?php echo base_url();?>index.php/raport/download/<?php echo $dtl->id_tahun;?>"><button class="btn btn-primary"><i class="icon-white icon-pdf"></i> Download PDF</button></a> <button class="btn btn-danger"><i class="icon-white icon-print"></i> Print</button> 
     </div>
-
+ -->
     <hr>
     <div class="form-horizontal">
     <div class="control-group">

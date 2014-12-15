@@ -29,6 +29,7 @@
 	<link href='<?php echo base_url();?>style/css/jquery.iphone.toggle.css' rel='stylesheet'>
 	<link href='<?php echo base_url();?>style/css/opa-icons.css' rel='stylesheet'>
 	<link href='<?php echo base_url();?>style/css/uploadify.css' rel='stylesheet'>
+	<link href='<?php echo base_url();?>style/css/pnotify.custom.min.css' rel='stylesheet'>
 	<!--script -->
         <script src="<?php echo base_url();?>style/js/jquery-1.7.2.min.js"></script>
         
@@ -197,7 +198,9 @@
                        <td>
                            <strong>EKSTRAKURIKULER</strong>
                        </td>
-                       
+                       <td>
+                           <strong>NILAI</strong>
+                       </td>
                        <td>
                            <strong>AKSI</strong>
                        </td>
@@ -216,9 +219,9 @@
                    <tr>
                        <td><?php echo $no++;?></td>
                        <td><?php echo $as->ekstrakulikuler;?></td>
-                       
-                       <td><button class="btn btn-primary" id="NilaiEkskul">Nilai </button>
-                           <button class="btn btn-danger" id="HapusEkskul" data-href="<?php echo base_url();?>index.php/walas/hapusekskul/<?php echo $as->id_eks;?>">Hapus </button>
+                       <td><?php echo $as->keterangan;?></td>
+                       <td><a data-toggle="modal" href="#" data-href="<?php echo base_url();?>index.php/ekskul/nilai/<?php echo $dtl->nis;?>/<?php echo $as->id_ekskul;?>" class="btn btn-primary" id="NilaiEkskul">Nilai </a>
+                           <button class="btn btn-danger" id="HapusEkskul" data-href="<?php echo base_url();?>index.php/ekskul/hapus/<?php echo $as->id_eks;?>">Hapus </button>
                        </td>
                    </tr>
                    
@@ -231,6 +234,7 @@
                </tbody>
            </table>
            <a data-toggle="modal" href="#" data-href="<?php echo base_url();?>index.php/ekskul/tambah/<?php echo $dtl->nis;?>" class="btn btn-primary">Tambah</a>
+           <a href="<?php echo base_url();?>index.php/walas/" class="btn btn-danger">Kembali</a>
            <div id="TambahForm">
                
            </div>
@@ -323,6 +327,7 @@
 	<script src="<?php echo base_url();?>style/js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="<?php echo base_url();?>style/js/charisma.js"></script>
+	<script src="<?php echo base_url();?>style/js/pnotify.custom.min.js"></script>
 	<script type="text/javascript">
             $(document).ready(function(){
                 
@@ -350,6 +355,74 @@
         }
                 });
                 });
+
+    			//SimpanNilaiEkskul
+                $("#KetEkskul").live('click',function(a){
+                    a.preventDefault();    
+                    var href = $(this).attr("data-proc");
+                    var form_data = {
+                        
+                        id_eks: $('#id_eks').val(),
+                        keterangan: $('#keterangan').val(),
+                        ajax : '1'
+                    };
+                    $.ajax({
+            type: "POST",
+            url: href,
+            async : false,
+            data: form_data,
+            success: function(response) {
+               //$('.modal').html(response);    
+               //$(".modal").delay(10000).modal('hide');
+               //setTimeout(function() {  }, 1000);
+               $('.modal').modal('hide');
+               //location.reload(true);
+               if(response==="Sukses"){
+                   
+                new PNotify({
+                    title: 'Berhasil',
+                    type: 'success',
+                    text: "Berhasil Memasukkan data"
+                });
+              setTimeout(function() { location.reload(true); }, 1000);
+               }else{
+
+
+               }
+               
+            }
+                    });
+                    });
+                //HAPUS DATA
+                $("#HapusEkskul").live('click',function(a){
+                    a.preventDefault();    
+                    var href = $(this).attr("data-href");
+                    $.ajax({
+            type: "POST",
+            url: href,
+            async : false,
+            success: function(response) {
+               //$('.modal').html(response);    
+               //$(".modal").delay(10000).modal('hide');
+               //setTimeout(function() {  }, 1000);
+               //$('.modal').modal('hide');
+               //location.reload(true);
+               if(response==="Sukses"){
+                   
+                new PNotify({
+                    title: 'Berhasil',
+                    type: 'success',
+                    text: "Berhasil Menghapus data"
+                });
+              setTimeout(function() { location.reload(true); }, 1000);
+               }else{
+
+
+               }
+               
+            }
+                    });
+                    });
             });
             </script>
   <div id="footer">
