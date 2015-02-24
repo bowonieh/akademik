@@ -72,8 +72,38 @@ class Kurmapel extends CI_Controller{
      
      function lihat(){
      	$id_matpelguru = $this->uri->segment(3);
+     	$data['title'] = "Detil mata pelajaran";
+ 		
+     	//Data Kelas
+     	$this->db->distinct('id_kelas');
+     	$this->db->join('d_nilai','d_nilai.id_matpelguru = d_matpelguru.id_matpelguru','inner');
+     	$this->db->join('d_siswa','d_siswa.nis = d_nilai.nis','inner');
+     	$this->db->join('d_kelas','d_kelas.id_kelas = d_siswa.id_kelas','inner');
+     	$this->db->where(array('d_matpelguru.id_matpelguru'=>$id_matpelguru));
+     	$this->db->group_by('d_kelas.id_kelas');
+     	$o = $this->db->get('d_matpelguru'); 
+     	$data['kelas'] = $o->num_rows();
+ //Jumlah siswa ikut Matpel========================    	
+     	$this->db->select(array('nis'));
+     	$this->db->join('r_matpel','r_matpel.id_matpel = d_matpelguru.id_matpel','left');
+     	$this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','left');
+     	$this->db->join('d_guru','d_guru.id_guru=d_matpelguru.id_guru','inner');
+     	$this->db->join('d_nilai','d_nilai.id_matpelguru = d_matpelguru.id_matpelguru','inner');
+     	$this->db->join('r_kategori_matpel','r_kategori_matpel.id_katmapel=r_matpel.id_katmapel','inner');
+     	
+     	$this->db->where(array('d_matpelguru.id_matpelguru'=>$id_matpelguru));
+     	$a = $this->db->get('d_matpelguru');
+     	$data['siswa'] = $a->num_rows();
+//===================================================
+     	$this->db->join('r_matpel','r_matpel.id_matpel = d_matpelguru.id_matpel','left');
+     	$this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','left');
+     	$this->db->join('d_guru','d_guru.id_guru=d_matpelguru.id_guru','inner');
+     	$this->db->join('r_kategori_matpel','r_kategori_matpel.id_katmapel=r_matpel.id_katmapel','inner');
+     	$data['mapel'] = $this->mdb->getDetil('d_matpelguru',array('id_matpelguru'=>$id_matpelguru));
      	
      	
+     	
+     	$this->load->view('admin/kurikulum/matpel/detil',$data);
      }
      
      function aktivasi(){
