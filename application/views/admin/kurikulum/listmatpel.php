@@ -153,9 +153,9 @@
 			<div class="row-fluid sortable">		
 				<div class="box span12">
 					<div class="box-header well" data-original-title>
-						<h2><i class="icon-mail-alt"></i> Surat Masuk</h2>
+						<h2><i class="icon-mail-alt"></i> Daftar Mata Pelajaran</h2>
 						<div class="box-icon">
-                                                        <a href="<?php echo base_url();?>index.php/surat_masuk/tambah" class="btn btn-round"><i class="icon-plus"></i> </a>
+                                                        <a href="<?php echo base_url();?>index.php/kurmapel/tambah" class="btn btn-round"><i class="icon-plus"></i> </a>
                                                         
                                                         
 						</div>
@@ -172,37 +172,37 @@
                                                     <thead>
 							  <tr>
 								  <th>NO</th>
-								  <th>PENGIRIM</th>
-								  <th>JUDUL</th>
-								  <th>TANGGAL </th>
-								  <th>Actions</th>
+								  <th width="30%">Mata Pelajaran</th>
+								  <th width="15%">Guru Pengampu</th>
+								  <th>Semester </th>
+								  <th>Aksi</th>
 							  </tr>
                                                           
 						  </thead>   
 						  <tbody>
                                                       <?php 
                                                       $no = 1;
-                                                      foreach ($isi as $d){
-                                                          if ($d=='0'){
+                                                      foreach ($isi as $dd){
+                                                          if ($dd ==='0'){
                                                               
                                                           }else{
                                                           ?>
                                                       
                                                       <tr>
                                                           <td><?php echo $no++;?></td>
-                                                          <td class="center"><?php echo $d->pengirim;?></td>
-                                                          <td class="center"><?php echo $d->judul;?></td>
-                                                          <td class="center"><?php echo $d->tanggal;?></td>
+                                                          <td class="center"><?php echo $dd->nama_matpel;?></td>
+                                                          <td class="center"><?php echo $dd->nama_guru;?></td>
+                                                          <td class="center"><?php echo $dd->tahun;?></td>
                                                           <td class="center">
                                                               
-                                                              <a data-toggle="modal" href="#" data-href="<?php echo base_url();?>index.php/surat_masuk/viewdetil/<?php echo $d->id_suratmasuk;?>" class="btn btn-primary">Lihat</a>
-
+                                                              <a href="<?php echo base_url();?>index.php/kurmapel/lihat/<?php echo $dd->id_matpelguru;?>"   class="btn btn-primary">Lihat</a>
+															  <!-- <a data-toggle="modal" href="<?php echo base_url();?>index.php/kurmapel/lihat/<?php echo $dd->id_matpelguru;?>"   class="btn btn-primary">Lihat</a> -->
 
 									<a class="btn btn-info" href="#">
 										<i class="icon-edit icon-white"></i>  
 										Edit                                            
 									</a>
-									<a class="btn btn-danger delete" href="<?php echo base_url();?>index.php/surat_masuk/hapus/<?php echo $d->id_suratmasuk;?>" data-confirm="Hapus Data?">
+									<a class="btn btn-danger delete" href="<?php echo base_url();?>index.php/kurmapel/hapus/<?php echo $dd->id_matpelguru;?>" data-confirm="Hapus Data?">
 										<i class="icon-trash icon-white"></i> 
 										Delete
 									</a></td>
@@ -253,11 +253,6 @@
 		
 	</div><!--/.fluid-container-->
 
-	<!-- external javascript
-	================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-
-	<!-- jQuery -->
 	<script src="<?php echo base_url();?>style/js/jquery-1.7.2.min.js"></script>
 	<!-- jQuery UI -->
 	<script src="<?php echo base_url();?>style/js/jquery-ui-1.8.21.custom.min.js"></script>

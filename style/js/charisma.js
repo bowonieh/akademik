@@ -750,7 +750,7 @@ $(document).on("click",".delete",function(event){
           {
             $(btn).closest('tr').fadeOut("slow");
           }
-          else if (response==="ErrorD"){
+          else if (response==="Error"){
               $(btn).closest('tr').pop();
           }
           else
