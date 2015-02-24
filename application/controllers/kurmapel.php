@@ -107,6 +107,7 @@ class Kurmapel extends CI_Controller{
      }
      
      function aktivasi(){
+     	//aktivasi aja :p 
          
      }
      
