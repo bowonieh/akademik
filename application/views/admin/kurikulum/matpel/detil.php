@@ -203,10 +203,10 @@
                         <label>Jumlah Kelas</label>
                         <span class="isian"><?php echo $kelas;?></span>
                     	<hr>
-                        <label>Confirm New Password</label>
-                        <input type="password" class="form-control" />
+                       
+                       
                         <br>
-                        <a href="#" class="btn btn-warning">Kembali</a>
+                        <a href="<?php echo base_url();?>index.php/kurmapel" class="btn btn-warning">Kembali</a>
                     </div>
                 </div>
             </div>
