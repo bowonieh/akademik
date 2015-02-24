@@ -41,7 +41,8 @@ function index(){
     function nilaisimpan(){
     	$id_eks = $this->input->post('id_eks');
     	$data = array(
-    			'keterangan' => $this->input->post('keterangan')
+    			'keterangan' => $this->input->post('keterangan'),
+    			'deskripsi' => $this->input->post('deskripsi')
     			);
     	$d = $this->db->update('d_ekskul_siswa', $data, array('id_eks'=>$id_eks));
     	if ($d){

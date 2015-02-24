@@ -208,9 +208,9 @@ class Cellmap {
   function get_spanned_cells($frame) {
     $key = $frame->get_id();
 
-    if ( !isset($this->_frames[$key]) ) {
-      throw new DOMPDF_Exception("Frame not found in cellmap");
-    }
+    //if ( !isset($this->_frames[$key]) ) {
+      //throw new DOMPDF_Exception("Frame not found in cellmap");
+    //}
 
     return $this->_frames[$key];
 

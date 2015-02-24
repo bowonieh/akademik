@@ -18,11 +18,20 @@
                   <div class="controls">
                       <?php //echo //form_dropdown('id_ekskul',$ekskul,'','id="id_ekskul"');?>
                         
-						<?php echo form_dropdown('keterangan',array('A'=>'A','B'=>'B','C'=>'C','D'=>'D'),$siswa->keterangan,'id="keterangan"');?>
+						<?php echo form_dropdown('keterangan',array('Sangat Baik'=>'Sangat Baik','Baik'=>'Baik','Cukup'=>'Cukup','Kurang'=>'Kurang'),$siswa->keterangan,'id="keterangan"');?>
                       <?php echo form_hidden('id_eks', $siswa->id_eks,'id_eks');?>
                   </div>
               </div>
-              
+			 
+			 <div class="control-group">
+                  <label class="control-label">Deskripsi</label>
+                  <div class="controls">
+                      <?php //echo //form_dropdown('id_ekskul',$ekskul,'','id="id_ekskul"');?>
+                        
+						
+                       <?php echo form_textarea('deskripsi',$siswa->deskripsi,'id="deskripsi" class="cleditor"');?>
+                  </div>
+              </div>              
           </div>
       </div>
        <div class="modal-footer">

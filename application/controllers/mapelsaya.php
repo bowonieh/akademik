@@ -519,6 +519,49 @@ class Mapelsaya extends CI_Controller {
         }
     }
 
+    function downloadxls(){
+    	if($this->session->userdata('username',TRUE) && $this->session->userdata('level')==='2'){
+    		//Halaman ini akan melakukan generate file excel
+    		
+    		$id = $this->uri->segment(3);
+    		$data['namaguru'] = $this->mdb->infouser();
+    		$data['title'] = 'Olah Nilai Siswa';
+    		$id_guru = $this->mdb->infouser();
+    		$this->db->order_by('d_siswa.nis','asc');
+    		$this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+    		$this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
+    		$this->db->join('d_siswa','d_siswa.nis= d_nilai.nis','inner');
+    		$this->db->join('d_kelas','d_kelas.id_kelas = d_siswa.id_kelas','inner');
+    		$d = $this->db->get_where('d_nilai',array('d_matpelguru.id_matpelguru'=>$id));
+    		$data['isi'] = $d->row();
+    		$chk = $d->row();
+    	
+    	
+    		$this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+    		$this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
+    		$this->db->join('d_siswa','d_siswa.nis= d_nilai.nis','inner');
+    		$this->db->join('d_kelas','d_kelas.id_kelas = d_siswa.id_kelas','inner');
+    		//$d = $this->db->get_where('d_nilai',array('d_matpelguru.id_matpelguru'=>$id));
+    		$this->db->where(array('d_matpelguru.id_matpelguru'=>$id));
+    		$data['list'] = $this->mdb->gettable('d_nilai');
+    		
+    		
+    		
+    		
+    		if (empty($chk)){
+    			//jika belum ada siswa yang mendaftar
+    			redirect('mapelsaya','refresh');
+    		}else{
+    			if($chk->id_guru !== $id_guru->id_guru){
+    				redirect('home','refresh');
+    			}else{
+    				$this->load->view('guru/mapel/downloadxls',$data);
+    			}
+    		}
+    	}else{
+    		redirect('home','refresh');
+    	}
+    }
     function entrynilai(){
         if($this->session->userdata('username',TRUE) && $this->session->userdata('level')==='2'){
             $id = $this->uri->segment(3);

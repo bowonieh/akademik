@@ -66,33 +66,35 @@ function rata_rata($bil){
     
 }
 //====================================
-
+//Pembualatan Ke bawah
 function bilangan4($x){
-    if(  $x <= 54 ){
+    if(  $x < 55 ){
         return "1";
       
-    }elseif($x >= 54 && $x <= 60  ){
+    }elseif($x > 54 && $x < 60  ){
         return 1.67;
     }
-    elseif($x > 60 && $x <= 65  ){
-        return 1.67;
+    elseif($x >= 60 && $x < 65  ){
+        return 1.66;
     }
-    elseif($x > 65 && $x <= 69  ){
+    elseif($x >= 65 && $x < 70  ){
         return 2.00;
     }
-    elseif($x > 69 && $x <= 75  ){
+    elseif($x >= 70 && $x < 75  ){
         return 2.33;
     }
-    elseif($x > 75 && $x <= 81  ){
-        return 2.67;
-    }elseif($x > 81 && $x <= 86  ){
+    elseif($x >= 75 && $x < 81  ){
+        return 2.66;
+    }elseif($x >= 81 && $x < 86  ){
         return 3.00;
-    }elseif($x > 86 && $x <= 91  ){
+    }elseif($x >= 86 && $x < 91  ){
         return 3.33;
-    }elseif($x > 91 && $x <= 96 ){
-        return 3.67;
-    }elseif($x > 96 && $x <= 101){
+    }elseif($x >= 91 && $x < 96 ){
+        return 3.66;
+    }elseif($x >= 96 && $x < 101){
         return 4.00;
+    }else{
+    	return 0.00;
     }
     
 }
@@ -131,13 +133,13 @@ function kriteria($x){
      if(  $x < 54 && $x < 60 ){
         return "K";
       
-    }elseif($x > 60 && $x < 75  ){
+    }elseif($x >= 60 && $x < 75  ){
         return "C";
     }
-    elseif($x > 75 && $x < 90  ){
+    elseif($x >= 75 && $x < 90  ){
         return "B";
     }
-    elseif($x > 90 && $x < 100  ){
+    elseif($x >= 90 && $x <= 100  ){
         return "SB";
     }
     
@@ -157,3 +159,4 @@ function konversi4($x){
         return $a;
     }
 }
+

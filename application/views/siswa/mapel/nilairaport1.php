@@ -1,3 +1,6 @@
+<html>
+<head>
+
 <style>
     h3{
         margin:2px;
@@ -14,34 +17,117 @@
     .kanan-tanggal{
         
         margin-top: 0px;
-        
+        font-size: 0.7em;
+        font-weight: strong;
     }
     .kanan-walas{
         margin-top:50px;
+        font-size:0.7em;
     }
     /*table */
 .nilai {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    width: 96%;
-   	/*border-collapse: collapse;*/
+    width: 699px;
+   	
     
     
 }
-table {
-	border-spacing: 0px;
+
+.namaMapel{
+	font-size:0.9em;
 	
 }
+.detil {
+	border:none;
+	font-size: 0.7em;
 
-
-.nilai td{
-    font-size: 0.5em;
-    border: 1px dotted #000000;
-    padding: 2px 4px 2px 4px;
-    margin : 0px 0px 0px 0px;
-    border-top: none;
-    border-left: 0.1em dotted #000000;
-    border-right: 0.1em dotted #000000;
+}
+.detil table{
+	background:transparent;
+	border:none;
+}
+.absensi td {
+    font-size: 0.4em;
     
+    border: 1px none #000000 !important;
+    
+    margin : 0px 0px 0px 0px;
+    vertical-align: middle;
+	padding-top: 3px;
+	padding-left: 2px;
+	padding-right:4px;
+	padding-bottom: 4px;    
+}
+
+
+.absensi th {
+    font-size: 0.8em;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    border: 1px none #000000;
+    /*background-color: #CCABCC;*/
+    color: #000000;
+}
+
+
+
+.ekskul {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: 400px;
+   	
+    
+    
+}
+
+table {
+	border-spacing: 0px;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+
+.nilai td {
+    font-size: 0.4em;
+    
+    border: 1px solid #000000 !important;
+    
+    margin : 0px 0px 0px 0px;
+    vertical-align: middle;
+	padding-top: 3px;
+	padding-left: 2px;
+	padding-right:0px;
+	padding-bottom: 0px;    
+}
+
+
+.ekskul td {
+    font-size: 0.4em;
+    
+    border: 1px solid #000000 !important;
+    
+    margin : 0px 0px 0px 0px;
+    vertical-align: middle;
+	padding-top: 3px;
+	padding-left: 2px;
+	padding-right:2px;
+	padding-bottom: 2px;    
+}
+
+
+.ekskul th {
+    font-size: 0.7em;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    border: 0.1px solid #000000;
+    /*background-color: #CCABCC;*/
+    color: #000000;
+}
+
+.Keterangan{
+
+	font-size:0.8em;
 }
 
 .nilai th {
@@ -49,8 +135,9 @@ table {
     text-align: center;
     padding-top: 5px;
     padding-bottom: 4px;
-    background-color: #CCABCC;
-    color: #ffffff;
+    border: 1px solid #000000;
+    /*background-color: #CCABCC;*/
+    color: #000000;
 }
 
 
@@ -63,22 +150,24 @@ table {
     width: 40%;
 }
 .nilai th.antarmapel {
-    width: 5%;
-}
+    width: 40%;
 .nilai th.listNo {
-    width: 5%;
+    width: 2%;
 }
 .nilai th.mapel {
-    width: 30%;
+}
+    width: 20%;
 }
 </style>
+</head>
+<body>
 <h3>Laporan Nilai Siswa Tahun Pelajaran <?php echo $dtl->tahun;?></h3>
 <h3>SMK Negeri 1 Kota Bekasi</h3>
 <h5>Jl. Bintara VIII No 2 Kelurahan Bintara, Kecamatan Bekasi Barat</h5>
 <h5>Telp. (021) 88951151 Email: info@smkn1kotabekasi.sch.id</h5>
 <hr>
 
-    <table width="100%" border="0">
+    <table width="90%" class="detil">
         <tr>
             
             <td>Nama Sekolah</td>
@@ -113,21 +202,28 @@ table {
     <table class="nilai">
     <thead>
     <tr>
-                <th rowspan="2" class="listNo">NO</th>
-                <th rowspan="2" class="mapel">Mata Pelajaran</th>
-                <th>Pengetahuan</th>
-                <th>Keterampilan</th>
-                <th colspan="2">Sikap Spiritual dan Sosial</th>
+                <th rowspan="3" class="listNo">NO</th>
+                <th rowspan="3" class="mapel">Mata Pelajaran</th>
+                <th colspan="2">Pengetahuan</th>
+                <th colspan="2">Keterampilan</th>
+                <th colspan="2">Sikap Sosial dan Spiritual</th>
                 
             </tr>
             <tr>
+                <th>Angka</th>
+                <th>Predikat</th>
+                <th>Angka</th>
+                <th>Predikat</th>
                 
-                <th>Predikat<br>(D-A)</th>
-                
-                <th>Predikat<br>(D-A)</th>
-                
-                <th>Dalam Mapel<br>(SB,B,C,K)</th>
-                <th class="antarmapel">Antar Mapel</th>
+                <th>Dalam Mapel</th>
+                <th class="antarmapel" rowspan="2">Antar Mapel</th>
+            </tr>
+            <tr>
+            	<th>1-4</th>
+            	<th>&nbsp;</th>
+            	<th>1-4</th>
+            	<th>&nbsp;</th>
+            	<th>SB/B/C/K</th>
             </tr>
         
     </thead>
@@ -138,12 +234,12 @@ table {
     		?>
     		<tr>
 		
-		<td colspan="5"></td>
-		<td rowspan="<?php echo count($isi)+1;?>" class="antarmapel"><?php if (empty($am)){
+		<td colspan="7">KELOMPOK A</td>
+		<td rowspan="50"  ><?php if (empty($am)){
 			echo "Antar Mapel belum di isi";
 		}else{
 			$ss = $am->nilai;
-			echo wordwrap($am->nilai, 25, "<br />\n", true);
+			echo wordwrap($am->nilai, 25, "<br/>\n", true);
 			
 		}
 			?></td>
@@ -151,17 +247,21 @@ table {
     		<?php 
     	}
     	?>
-    	<?php 
+    	<?php
+    	if(empty($kel_a)){
+    		
+    	} else{
     	$no = 1;
-    	foreach ($isi as $d){
+    	foreach ($kel_a as $d){
     		?>
     		<tr>
-    		<td><?php echo $no++;?></td>
-    		<td><?php echo $d->matpel;?>
-    		<p>
+    		<td align="center"> <?php echo $no++;?></td>
+    		<td><span class="namaMapel"><?php echo $d->matpel;?></span>
+    		<br>
                     (<?php echo $d->nama_guru;?>)
     		
     		</td>
+    		<td><?php echo $d->skala4_pengetahuan;?></td>
     		<td align="center">
     		
     		
@@ -174,6 +274,9 @@ table {
     		
     		}
     		?></td>
+    		<td>
+    		<?php echo $d->nilai4_keterampilan;?>
+    		</td>
     		<td align="center"><?php  
     		if(empty($d->predikat_keterampilan)){
     			echo "&nbsp;";
@@ -182,7 +285,8 @@ table {
     		echo $d->predikat_keterampilan;
     		}
     		?></td>
-    		<td align="center"><?php 
+    		
+    		<td align="center"><?php // 
     		if(empty($d->nilai_raport)){
     			echo "&nbsp;";
     		}else{
@@ -192,76 +296,258 @@ table {
     		
     		}
     		?></td>
+    		
     		</tr>
     		
     		<?php 
+    		}
     	}
     	?>
+		   <tr>
+		   <td colspan="7">KELOMPOK B</td>
+		   </tr>
+		<?php 
+		if(empty($kel_b)){
+			
+		}else{
+    	$no = 1;
+    	foreach ($kel_b as $s){
+    		?>
+    		<tr>
+    		<td align="center"> <?php echo $no++;?></td>
+    		<td><span class="namaMapel"><?php echo $s->matpel;?></span>
+    		<br>
+                    (<?php echo $s->nama_guru;?>)
+    		
+    		</td>
+    		<td><?php echo $s->skala4_pengetahuan;?></td>
+    		<td align="center">
+    		
+    		
+    		<?php 
+    		if(empty($s->predikat_pengetahuan)){
+    		echo "&nbsp;";	
+    		}else{
+    		
+    		echo $s->predikat_pengetahuan;
+    		
+    		}
+    		?></td>
+    		<td>
+    		<?php echo $s->nilai4_keterampilan;?>
+    		</td>
+    		<td align="center"><?php  
+    		if(empty($s->predikat_keterampilan)){
+    			echo "&nbsp;";
+    		}else{
+    		
+    		echo $s->predikat_keterampilan;
+    		}
+    		?></td>
+    		
+    		<td align="center"><?php // 
+    		if(empty($s->nilai_raport)){
+    			echo "&nbsp;";
+    		}else{
+    		
+    		
+    		echo kriteria($s->nilai_raport);
+    		
+    		}
+    		?></td>
+    		
+    		</tr>
+    		
+    		<?php
+    		} 
+    	}
+    	?>   
+		 <tr>
+		   <td colspan="7">KELOMPOK C1</td>
+		   </tr>
+		<?php
+		if(empty($kel_c1)){
+			
+		} else{
+    	$no = 1;
+    	foreach ($kel_c1 as $c1){
+    		?>
+    		<tr>
+    		<td align="center"> <?php echo $no++;?></td>
+    		<td><span class="namaMapel"><?php echo $c1->matpel;?></span>
+    		<br>
+                    (<?php echo $c1->nama_guru;?>)
+    		
+    		</td>
+    		<td><?php echo $c1->skala4_pengetahuan;?></td>
+    		<td align="center">
+    		
+    		
+    		<?php 
+    		if(empty($c1->predikat_pengetahuan)){
+    		echo "&nbsp;";	
+    		}else{
+    		
+    		echo $c1->predikat_pengetahuan;
+    		
+    		}
+    		?></td>
+    		<td>
+    		<?php echo $c1->nilai4_keterampilan;?>
+    		</td>
+    		<td align="center"><?php  
+    		if(empty($c1->predikat_keterampilan)){
+    			echo "&nbsp;";
+    		}else{
+    		
+    		echo $c1->predikat_keterampilan;
+    		}
+    		?></td>
+    		
+    		<td align="center"><?php // 
+    		if(empty($c1->nilai_raport)){
+    			echo "&nbsp;";
+    		}else{
+    		
+    		
+    		echo kriteria($c1->nilai_raport);
+    		
+    		}
+    		?></td>
+    		
+    		</tr>
+    		
+    		<?php 
+    		}
+		}
+    	?>   
+		 <tr>
+		   <td colspan="7">KELOMPOK C2</td>
+		   </tr>
 		   
+		<?php 
+    	$no = 1;
+    	if(empty($kel_c2)){
+    		
+    	}else{
+    	foreach ($kel_c2 as $c2){
+    		?>
+    		<tr>
+    		<td align="center"> <?php echo $no++;?></td>
+    		<td><?php echo $c2->matpel;?>
+    		<br>
+                    (<?php echo $c2->nama_guru;?>)
+    		
+    		</td>
+    		<td><?php echo $c2->skala4_pengetahuan;?></td>
+    		<td align="center">
+    		
+    		
+    		<?php 
+    		if(empty($c2->predikat_pengetahuan)){
+    		echo "&nbsp;";	
+    		}else{
+    		
+    		echo $c2->predikat_pengetahuan;
+    		
+    		}
+    		?></td>
+    		<td>
+    		<?php echo $c2->nilai4_keterampilan;?>
+    		</td>
+    		<td align="center"><?php  
+    		if(empty($c2->predikat_keterampilan)){
+    			echo "&nbsp;";
+    		}else{
+    		
+    		echo $c2->predikat_keterampilan;
+    		}
+    		?></td>
+    		
+    		<td align="center"><?php // 
+    		if(empty($c2->nilai_raport)){
+    			echo "&nbsp;";
+    		}else{
+    		
+    		
+    		echo kriteria($c2->nilai_raport);
+    		
+    		}
+    		?></td>
+    		
+    		</tr>
+    		
+    		<?php 
+    		}
+    	}
+    	?>   
+		 
+		 <tr>
+		   <td colspan="7">KELOMPOK C3</td>
+		   </tr>
+		<?php 
+    	$no = 1;
+    	if (empty($kel_c3)){
+    		
+    	}else{
+    	foreach ($kel_c3 as $c3){
+    		
+    		?>
+    		<tr>
+    		<td align="center"> <?php echo $no++;?></td>
+    		<td><?php echo $c3->matpel;?>
+    		<br>
+                    (<?php echo $c3->nama_guru;?>)
+    		
+    		</td>
+    		<td><?php echo $c3->skala4_pengetahuan;?></td>
+    		<td align="center">
+    		
+    		
+    		<?php 
+    		if(empty($c3->predikat_pengetahuan)){
+    		echo "&nbsp;";	
+    		}else{
+    		
+    		echo $c3->predikat_pengetahuan;
+    		
+    		}
+    		?></td>
+    		<td>
+    		<?php echo $c3->nilai4_keterampilan;?>
+    		</td>
+    		<td align="center"><?php  
+    		if(empty($c3->predikat_keterampilan)){
+    			echo "&nbsp;";
+    		}else{
+    		
+    		echo $c3->predikat_keterampilan;
+    		}
+    		?></td>
+    		
+    		<td align="center"><?php // 
+    		if(empty($c3->nilai_raport)){
+    			echo "&nbsp;";
+    		}else{
+    		
+    		
+    		echo kriteria($c3->nilai_raport);
+    		
+    		}
+    		?></td>
+    		
+    		</tr>
+    		
+    		<?php
+    		} 
+    	}
+    	?>   
+		 
 		  
     </tbody>
     
     </table>
-    <!-- 
-    <table class="nilai">
-        <thead>
-        
-            <tr>
-                <th rowspan="2" class="listNo">NO</th>
-                <th rowspan="2" class="mapel">Mata Pelajaran</th>
-                <th colspan="2">Keterampilan</th>
-                <th colspan="2">Pengetahuan</th>
-                <th colspan="2">Sikap</th>
-                <th rowspan="2">UTS</th>
-                <th rowspan="2">UAS</th>
-            </tr>
-            <tr>
-                <th>N</th>
-                <th>Prd</th>
-                <th>N</th>
-                <th>Prd</th>
-                <th>N</th>
-                <th>Prd</th>
-            </tr>
-        
-        </thead>
-        <tbody>
-            <?php 
-            $no = 1;
-            if(empty($isi)){
 
-            }else{
-            foreach ($isi as $d){
-                
-                ?>
-            <tr>
-                <td><?php echo $no++;?></td>
-                <td><?php echo $d->matpel;?>
-                    <p>
-                    (<?php echo $d->nama_guru;?>)
-                    </p>
-                </td>
-                <td><?php echo $d->nilai4_keterampilan;?></td>
-                <td><?php echo $d->predikat_keterampilan;?></td>
-                <td><?php echo $d->skala4_pengetahuan;?></td>
-                <td><?php echo $d->predikat_pengetahuan;?></td>
-                <td><?php echo $d->skala4_sikap;?></td>
-                <td><?php echo $d->predikat_sikap;?></td>
-                <td><?php echo $d->UTS;?></td>
-                <td><?php echo $d->UAS;?></td>
-            </tr>
-            
-            <?php
-                }
-            }?>
-        </tbody>
-    </table>
-    -->
-    <p></p>
-    <p></p>
-    
-    <p></p>
-    <p></p>
     <div>
         <h3>DESKRIPSI</h3>
         <table class="nilai">
@@ -277,48 +563,275 @@ table {
             
         </thead>
         <tbody>
-            <?php 
+        	<tr>
+        	<td colspan="4">KELOMPOK A</td>
+        	</tr>
+        	<?php 
             $no = 1;
-            if(empty($isi)){
+            if(empty($kel_a)){
 
             }else{
-            foreach ($isi as $d){
+            foreach ($kel_a as $a){
                 
                 ?>
             <tr>
                 <td rowspan="3"><?php echo $no++;?></td>
-                <td rowspan="3"><?php echo $d->matpel;?>
-                    <p>( <?php echo $d->nama_guru ;?> )</p>
+                <td rowspan="3"><?php echo $a->matpel;?>
+                    <br>( <?php echo $a->nama_guru ;?> )
                 
                 
                 </td>
                 <td colspan="1">Pengetahuan</td>
-                <td colspan="1"><?php echo $d->keterangan_pengetahuan;?></td>
+                <td colspan="1"><?php echo $a->keterangan_pengetahuan;?></td>
                 
                 
             </tr>
             <tr>
                 <td>Keterampilan</td>
-                <td><?php echo $d->keterangan_keterampilan;?></td>
+                <td><?php echo $a->keterangan_keterampilan;?></td>
                 
             </tr>
             <tr>
                 <td>Sosial dan spiritual</td>
-                <td><?php echo $d->desc_kemajuan_belajar;?></td>
+                <td><?php echo $a->desc_kemajuan_belajar;?></td>
                 
             </tr>
             
             <?php
                 }
             }?>
+        	
+			<tr>
+			<td colspan="4">KELOMPOK B</td>
+			</tr>        
+            <?php 
+            $no = 1;
+            if(empty($kel_b)){
+
+            }else{
+            foreach ($kel_b as $a){
+                
+                ?>
+            <tr>
+                <td rowspan="3"><?php echo $no++;?></td>
+                <td rowspan="3"><?php echo $a->matpel;?>
+                    <br>( <?php echo $a->nama_guru ;?> )
+                
+                
+                </td>
+                <td colspan="1">Pengetahuan</td>
+                <td colspan="1"><?php echo $a->keterangan_pengetahuan;?></td>
+                
+                
+            </tr>
+            <tr>
+                <td>Keterampilan</td>
+                <td><?php echo $a->keterangan_keterampilan;?></td>
+                
+            </tr>
+            <tr>
+                <td>Sosial dan spiritual</td>
+                <td><?php echo $a->desc_kemajuan_belajar;?></td>
+                
+            </tr>
+            
+            <?php
+                }
+            }?>
+            <tr>
+            <td colspan="4">KELOMPOK C1</td>
+            </tr>
+            <?php 
+            $no = 1;
+            if(empty($kel_c1)){
+
+            }else{
+            foreach ($kel_c1 as $a){
+                
+                ?>
+            <tr>
+                <td rowspan="3"><?php echo $no++;?></td>
+                <td rowspan="3"><?php echo $a->matpel;?>
+                    <br>( <?php echo $a->nama_guru ;?> )
+                
+                
+                </td>
+                <td colspan="1">Pengetahuan</td>
+                <td colspan="1"><?php echo $a->keterangan_pengetahuan;?></td>
+                
+                
+            </tr>
+            <tr>
+                <td>Keterampilan</td>
+                <td><?php echo $a->keterangan_keterampilan;?></td>
+                
+            </tr>
+            <tr>
+                <td>Sosial dan spiritual</td>
+                <td><?php echo $a->desc_kemajuan_belajar;?></td>
+                
+            </tr>
+            
+            <?php
+                }
+            }?>
+   			<tr>
+        	<td colspan="4">KELOMPOK C2</td>
+        	</tr>
+        	<?php 
+            $no = 1;
+            if(empty($kel_c2)){
+
+            }else{
+            foreach ($kel_c2 as $a){
+                
+                ?>
+            <tr>
+                <td rowspan="3"><?php echo $no++;?></td>
+                <td rowspan="3"><?php echo $a->matpel;?>
+                    <br>( <?php echo $a->nama_guru ;?> )
+                
+                
+                </td>
+                <td colspan="1">Pengetahuan</td>
+                <td colspan="1"><?php echo $a->keterangan_pengetahuan;?></td>
+                
+                
+            </tr>
+            <tr>
+                <td>Keterampilan</td>
+                <td><?php echo $a->keterangan_keterampilan;?></td>
+                
+            </tr>
+            <tr>
+                <td>Sosial dan spiritual</td>
+                <td><?php echo $a->desc_kemajuan_belajar;?></td>
+                
+            </tr>
+            
+            <?php
+                }
+            }?>
+            
+            <tr>
+        	<td colspan="4">KELOMPOK C3</td>
+        	</tr>
+        	<?php 
+            $no = 1;
+            if(empty($kel_c3)){
+
+            }else{
+            foreach ($kel_c3 as $a){
+                
+                ?>
+            <tr>
+                <td rowspan="3"><?php echo $no++;?></td>
+                <td rowspan="3"><?php echo $a->matpel;?>
+                    <br>( <?php echo $a->nama_guru ;?> )
+                
+                
+                </td>
+                <td colspan="1">Pengetahuan</td>
+                <td colspan="1"><?php echo $a->keterangan_pengetahuan;?></td>
+                
+                
+            </tr>
+            <tr>
+                <td>Keterampilan</td>
+                <td><?php echo $a->keterangan_keterampilan;?></td>
+                
+            </tr>
+            <tr>
+                <td>Sosial dan spiritual</td>
+                <td><?php echo $a->desc_kemajuan_belajar;?></td>
+                
+            </tr>
+            
+            <?php
+                }
+            }?>
+   
         </tbody>
     </table>
     
     </div>
     <p></p>
-    <div id="kanan">
+    <table class="ekskul">
+    <thead>
+    
+    <tr>
+    <td width="20px">NO</td>
+    <td width="100px">Ekstra Kulikuler</td>
+    <td width="80px">Nilai</td>
+    <td width="300px">Deskripsi</td>
+    </tr>
+    </thead>
+    <tbody>
+    <?php 
+    $no = 1;
+    if(empty($ekskul)){
+    	
+    }else{
+    	foreach ($ekskul as $d){
+    		?>
+    		<tr>
+    		<td><?php echo $no++;?></td>
+    		<td><?php echo $d->ekstrakulikuler;?></td>
+    		<td><?php echo $d->keterangan;?></td>
+    		<td><?php echo $d->deskripsi;?></td>
+    		</tr>
+    		<?php 
+    	}
+    }
+    ?>
+    </tbody>
+    </table>
+    
+    <div></div>
+    <table class="absensi">
+    <thead>
+    	<tr><th>Ketidakhadiran</th></tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Sakit</td><td>:</td><td><?php 
+    if(empty($absen->sakit)){
+    	echo "&nbsp;";
+    }else{
+    
+    echo $absen->sakit;
+    }
+    ?></td>
+    </tr>
+    <tr>
+    <td>Ijin</td><td>:</td><td>
+    
+    
+    <?php 
+    if(empty($absen->ijin)){
+    	echo "&nbsp;";
+    }else{
+    
+    echo $absen->ijin;
+    }
+    ?></td>
+    </tr>
+    <tr>
+    <td>Tanpa Keterangan</td><td>:</td><td><?php 
+    if(empty($absen->tanpa_keterangan)){
+    	echo "&nbsp;";
+    }else{
+    
+    
+    echo $absen->tanpa_keterangan;
+    }
+    ?></td>
+    </tr>
+    </tbody>
+    </table>
+        <div id="kanan">
         <div class="kanan-tanggal">
-            Bekasi , <?php echo date('d-M-Y');?>
+            Bekasi , ............................<?php echo date('Y');?>
             <br>
         Wali Kelas,
         </div>
@@ -338,3 +851,5 @@ table {
         </div>
     </div>
     </div>
+    </body>
+</html>

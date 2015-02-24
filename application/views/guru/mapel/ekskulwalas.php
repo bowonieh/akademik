@@ -202,6 +202,10 @@
                            <strong>NILAI</strong>
                        </td>
                        <td>
+                           <strong>DESKRIPSI</strong>
+                       </td>
+                       
+                       <td>
                            <strong>AKSI</strong>
                        </td>
                    </tr>
@@ -220,6 +224,7 @@
                        <td><?php echo $no++;?></td>
                        <td><?php echo $as->ekstrakulikuler;?></td>
                        <td><?php echo $as->keterangan;?></td>
+                       <td><?php echo $as->deskripsi;?></td>
                        <td><a data-toggle="modal" href="#" data-href="<?php echo base_url();?>index.php/ekskul/nilai/<?php echo $dtl->nis;?>/<?php echo $as->id_ekskul;?>" class="btn btn-primary" id="NilaiEkskul">Nilai </a>
                            <button class="btn btn-danger" id="HapusEkskul" data-href="<?php echo base_url();?>index.php/ekskul/hapus/<?php echo $as->id_eks;?>">Hapus </button>
                        </td>
@@ -364,6 +369,7 @@
                         
                         id_eks: $('#id_eks').val(),
                         keterangan: $('#keterangan').val(),
+                        deskripsi: $('#deskripsi').val(),
                         ajax : '1'
                     };
                     $.ajax({

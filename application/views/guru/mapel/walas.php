@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="utf-8" >
@@ -31,80 +31,17 @@
 	<link href='<?php echo base_url();?>style/css/uploadify.css' rel='stylesheet'>
 	<!--script -->
         <script src="<?php echo base_url();?>style/js/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-               
-               $("#PenilaianAksi").click(function(event){
-                   
-                   var href         = $(this).attr("href");
-                   var btn          = this;
-                   var form_data    = {
-                      id_nilai                  :   $("#id_nilai").val(),
-                      tp1                       :   $("#tp1").val(),
-                      tp2                       :   $("#tp2").val(),
-                      tp3                       :   $("#tp3").val(),
-                      tp4                       :   $("#tp4").val(),
-                      p1                        :   $("#p1").val(),
-                      p2                        :   $("#p2").val(),
-                      p3                        :   $("#p3").val(),
-                      p4                        :   $("#p4").val(),
-                      pr1                       :   $("#pr1").val(),
-                      pr2                       :   $("#pr2").val(),
-                      pr3                       :   $("#pr3").val(),
-                      keterangan_keterampilan   :   $("#keterangan_keterampilan").val(),
-                      uh1                       :   $("#uh1").val(),
-                      uh2                       :   $("#uh2").val(),
-                      uh3                       :   $("#uh3").val(),
-                      uh4                       :   $("#uh4").val(),
-                      t1                        :   $("#t1").val(),
-                      t2                        :   $("#t2").val(),
-                      t3                        :   $("#t3").val(),
-                      t4                        :   $("#t4").val(),
-                      UTS                       :   $("#UTS").val(),
-                      UAS                       :   $("#UAS").val(),
-                      keterangan_pengetahuan    :   $("#keterangan_pengetahuan").val(),
-                      observasi1                :   $("#observasi1").val(),
-                      observasi2                :   $("#observasi2").val(),
-                      penilaian_diri1           :   $("#penilaian_diri1").val(),
-                      penilaian_diri2           :   $("#penilaian_diri2").val(),
-                      penilaian_diri3           :   $("#penilaian_diri3").val(),
-                      penilaian_teman1          :   $("#penilaian_teman1").val(),
-                      penilaian_teman2          :   $("#penilaian_teman2").val(),
-                      jurnal1                   :   $("#jurnal1").val(),
-                      jurnal2                   :   $("#jurnal2").val(),
-                      desc_kemajuan_belajar     :   $("#desc_kemajuan_belajar").val(),
-                      ajax                      :   '1'
-                      
-                   };
-                   $.ajax({
-                        type    : "POST",
-                        url     : href,
-                        async   : false,
-                        cache   : false,
-                        data    : form_data,
-                        success : function(response){
-                            if(response=== "Success"){
-                                //Jika Berhasil
-                               $(btn).fadeOut('500');
-                               //$('#tabelPendidikan').fadeOut('500');
-                               $('.alert').html("Berhasil Memperbarui nilai");
-                               $('.alert').show(); 
-                                $('.alert').delay(4500).fadeOut('slow');
-                               $(btn).delay(5000).fadeIn('slow');
-                            }else{
-                                //Jika Gagal
-                                
-                                
-                            }
-                        }
-                   });
-                    event.preventDefault();
-               });
-               
-            });
-            
-        </script>
-	
+  <style>
+  #printPage{display:none;}
+ 
+    @media print {
+     
+     #printPage {
+       display: block;
+     }
+    }
+  
+  </style>
 </head>
 
 <body>
@@ -300,8 +237,10 @@
                           <!--<button class="btn btn-primary">Sikap Antar Mapel </button>-->
                            <a href="<?php echo base_url();?>index.php/walas/ekskul/<?php echo $as->nis;?>"><button class="btn btn-success">Ekskul </button></a>
                            <a href="<?php echo base_url();?>index.php/walas/antarmapel/<?php echo $as->nis;?>"><button class="btn btn-secondary">Nilai Antar Mapel </button></a>
+                           <a href="<?php echo base_url();?>index.php/walas/absensi/<?php echo $as->nis;?>"><button class="btn btn-secondary">Absensi </button></a>
                            <a href="<?php echo base_url();?>index.php/walas/nilaiproses/<?php echo $as->nis;?>"><button class="btn btn-primary">Nilai Proses </button></a>
-                           <a href="<?php echo base_url();?>index.php/walas/nilairaport/<?php echo $as->nis;?>"><button class="btn btn-danger">Nilai Raport </button></a>
+                           <!-- <a class="printRaport" href="<?php echo base_url();?>index.php/walas/nilairaport/<?php echo $as->nis;?>"><button class="btn btn-danger">Nilai Raport </button></a> -->
+							<button class="btn btn-danger" id="tblPrint" href="<?php echo base_url();?>index.php/walas/nilairaport/<?php echo $as->nis;?>">Nilai Raport</button>
                        </td>
                    </tr>
                    
@@ -316,7 +255,7 @@
            
        </div>
        
-           
+           <div id="printPage"></div>
    </div>
                                     
    
@@ -393,12 +332,52 @@
 	<script src="<?php echo base_url();?>style/js/jquery.uploadify-3.1.min.js"></script>
 	<!-- history.js for cross-browser state change on ajax -->
 	<script src="<?php echo base_url();?>style/js/jquery.history.js"></script>
+	<script src="<?php echo base_url();?>style/js/jquery.print.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="<?php echo base_url();?>style/js/charisma.js"></script>
 	
+        <script type="text/javascript">
+        
+        		$(document).ready(function(){
+
+            		
+
+    			//$("#printPage").hide();
+                
+               $("#tblPrint").live("click",function(event){
+                   
+                    
+
+                    var href = $(this).attr("href");
+					var btn = this;
+					$.ajax({
+
+						type    : "POST",
+                        url     : href,
+                        async   : false,
+                        cache   : false,
+                        success : function(response){
+							
+								$("#printPage").html(response);
+								$("#printPage").print();
+								//$("#printPage").hide();							
+	
+                        }
+
+					});
+					event.preventDefault();    
+               });
+
+        		});   
+            
+            
+        </script>
+	
   <div id="footer">
    	<div class="footerstatus" align="right">© 2014 SISFO AKADEMIK SISWA - SMK NEGERI 1 KOTA BEKASI</div>
+    
     </div>
+    
 </div>
 </body>
 </html>

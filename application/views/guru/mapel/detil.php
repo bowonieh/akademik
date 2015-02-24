@@ -197,6 +197,7 @@
                     <div class="span12">
                     	<a href="<?php echo base_url();?>index.php/mapelsaya/entrynilai/<?php echo $mapel->id_matpelguru;?>"><button class="btn btn-primary"><i class="icon icon-white icon-edit"></i> Olah Nilai</button></a>
                     	<a href="<?php echo base_url();?>index.php/mapelsaya/deskripsi/<?php echo $mapel->id_matpelguru;?>"><button class="btn btn-success"><i class="icon icon-white icon-read"></i> Olah Deskripsi</button></a>
+                    	<a href="<?php echo base_url();?>index.php/mapelsaya/downloadxls/<?php echo $mapel->id_matpelguru;?>"><button class="btn btn-danger"><i class="icon icon-white icon-xls"></i> Download Xls</button></a>
                     </div>             
                                 
 			</div>

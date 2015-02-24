@@ -29,7 +29,10 @@
 	<link href='<?php echo base_url();?>style/css/jquery.iphone.toggle.css' rel='stylesheet'>
 	<link href='<?php echo base_url();?>style/css/opa-icons.css' rel='stylesheet'>
 	<link href='<?php echo base_url();?>style/css/uploadify.css' rel='stylesheet'>
-	
+	<!--script -->
+        <script src="<?php echo base_url();?>style/js/jquery-1.7.2.min.js"></script>
+        <link href='<?php echo base_url();?>style/css/pnotify.custom.min.css' rel='stylesheet'>
+        
 	
 </head>
 
@@ -59,7 +62,7 @@
                                 <div class="titlehr"></div>
                             </div>
                             <div class="isisubbox">
-                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/profil">PROFIL SAYA</a></div>
+                            	<div class="isisubmenu"><a href="<?php echo base_url();?>index.php/profilguru">PROFIL SAYA</a></div>
 							</div>
                             <div class="isisubbox">
                             	<div class="isisubmenu">DATA KELUARGA</div>
@@ -165,58 +168,72 @@
   
   <div id="kontenbody">
       
-   <div class="map">Guru > MAPEL SAYA > Olah Nilai > <?php echo $isi->nama_matpel ;?> </div>
+   <div class="map">Guru > walas >Antar Mapel</div>
    
    
- 
-   <div class="span10">  
+   <div class="span8">  
        
-       <p class="judul">Menu Pengolahan Nilai Mapel <?php echo $isi->nama_matpel ;?></p>
-       <a href="<?php echo base_url();?>index.php/mapelsaya/detil/<?php echo $isi->id_matpelguru;?>"><button class="btn btn-primary">Beranda Mapel</button></a>
-       <p class="hrnya"></p>
-       <div id="status" class="alert"></div>
-       <table class="table table-bordered table-mini table-condensed table-hover table-striped bootstrap-datatable datatable" id="EntryDeskripsi">
-        <thead>
-          <tr>
-            
-            <th >NIS</th>
-            <th >KELAS</th>
-            <th >NAMA LENGKAP</th>
-            <th>Nilai Keterampilan</th>
-            <th >Deskripsi Keterampilan</th>
-            <th>Nilai Pengetahuan</th>
-            <th >Deskripsi Pengetahuan</th>
-            <th>Nilai Sikap</th>
-            <th >Deskripsi Sikap</th>
-          </tr>
-          
-          
-        </thead>
-        <tbody>
-         <?php if (empty($list)){
-
-         }else{
-            foreach($list as $a ){
-            ?>
-            <tr>
-                <td><?php echo $a->nis;?></td>
-                <td><?php echo $a->kelas;?></td>
-                <td><?php echo $a->nama_siswa;?></td>
-                <td><?php echo $a->predikat_keterampilan;?></td>
-                <td id="keterangan_keterampilan:<?php echo $a->id_nilai;?>" contenteditable="true"><?php echo $a->keterangan_keterampilan;?></td>
-                <td><?php echo $a->predikat_pengetahuan;?></td>
-                <td id="keterangan_pengetahuan:<?php echo $a->id_nilai;?>" contenteditable="true"><?php echo $a->keterangan_pengetahuan;?></td>
-                <td><?php echo kriteria($a->nilai_raport);?></td>
-                <td id="desc_kemajuan_belajar:<?php echo $a->id_nilai;?>" contenteditable="true"><?php echo $a->desc_kemajuan_belajar;?></td>
-            </tr>
-            <?php
-        }
-         }
-         ?>
-          
-        </tbody>
-       </table>
-
+       <div>
+           
+<br>
+       </div>
+       <div>
+				<div class="box-content">
+									<div><a href="<?php echo base_url();?>index.php/walas"><button class="btn btn-primary">Menu Walas</button></a></div>
+                                           <p></p>
+                                           <p></p>
+                                           <p></p>
+                                           
+                                            <div class="tambahPembayaran">
+                                                <form class="form-horizontal">
+						  <fieldset>
+							
+							<div class="control-group">
+							  <label class="control-label" >NAMA SISWA </label>
+							  <div class="controls">
+								
+                                                                
+							  	<label class="control-label"><?php echo $dtl->nama_siswa;?></label>
+								
+							  </div>
+							</div>
+							
+							
+							<div class="control-group">
+							  <label class="control-label" for="sakit">Sakit</label>
+							  <div class="controls">
+							  	<input type="hidden" id="id_tahun" value="<?php echo $th;?>"/>
+							  	<input type="hidden" id="nis" value="<?php echo $dtl->no_induk;?>"/>
+								<?php echo form_input('sakit','','id="sakit" class="input-small"')?>
+							  </div>
+							</div>
+							<div class="control-group">
+							  <label class="control-label" for="sakit">Tanpa Keterangan</label>
+							  <div class="controls">
+							  	
+								<?php echo form_input('tanpa_keterangan','','id="tanpa_keterangan" class="input-small"')?>
+							  </div>
+							</div>
+							<div class="control-group">
+							  <label class="control-label" for="sakit">Ijin</label>
+							  <div class="controls">
+							  	
+								<?php echo form_input('ijin','','id="ijin" class="input-small"')?>
+							  </div>
+							  
+							</div>
+							<div class="form-actions">
+							  <button id="btnSimpanAbsensi" data-url="<?php echo base_url();?>index.php/walas/absensitambah" class="btn btn-primary">Simpan</button>
+							  <a href="<?php echo base_url();?>index.php/walas"><button type="reset" class="btn">Kembali</button></a>
+							</div>
+						  </fieldset>
+						</form>
+                                                <div class="alert"></div>
+                                            </div>
+					</div>           
+       </div>
+       
+           
    </div>
                                     
    
@@ -295,33 +312,44 @@
 	<script src="<?php echo base_url();?>style/js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="<?php echo base_url();?>style/js/charisma.js"></script>
-	
+	<script src="<?php echo base_url();?>style/js/pnotify.custom.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+	    $('#btnSimpanAbsensi').live('click',function(a){
+	        a.preventDefault();
+	        //$('.alert').hide();
+	        var href = $(this).attr("data-url");
+	        var form_data = {
+	            nis             		: $('#nis').val(),
+	            sakit   				: $('#sakit').val(),
+	            tanpa_keterangan   		: $('#tanpa_keterangan').val(),
+	            ijin	   				: $('#ijin').val(),
+	            id_tahun      			: $('#id_tahun').val(),
+	            ajax					: true
+	        };
+	        $.ajax({
+	        type: "POST",
+	        url: href,
+	        async : false,
+	        cache: false,
+	        data: form_data,
+	        success: function(response) {
+	        	new PNotify({
+	                   title: 'Berhasil',
+	                   type: 'success',
+	                   text: response
+	               });
+	           //setTimeout(function(){window.location.replace("<?php echo base_url();?>index.php/walas");},9000);
+	           
+	        	}
+	                
+	    	});
+	    });
+	});
+            </script>
   <div id="footer">
    	<div class="footerstatus" align="right">© 2014 SISFO AKADEMIK SISWA - SMK NEGERI 1 KOTA BEKASI</div>
     </div>
 </div>
 </body>
-<script type="text/javascript">
-$(document).on('click','#EntryDeskripsi',function(){
-  //acknowledgement message
-    var message_status = $("#status");
-    $("td[contenteditable=true]").blur(function(){
-
-        var field_userid = $(this).attr("id") ;
-        var reg = new RegExp('/[^0-9]/g');
-        var value = $(this).text() ;
-       
-            $.post('../ajaxpostdeskripsi' , field_userid + "=" + value, function(data){
-            if(data != '')
-                {
-                    message_status.show();
-                    message_status.text(data);
-                    //hide the message
-                    setTimeout(function(){message_status.hide()},3000);
-                }
-            });
-        
-    });
-});
-</script>
 </html>

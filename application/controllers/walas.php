@@ -2,19 +2,18 @@
 
 class Walas extends CI_Controller {
 //Halaman Walas. SMK Negeri 1 Kota Bekasi
-    function __construct() {
+    function __construct(){
         parent::__construct();
         $this->load->model(array('msuratmasuk','mdb'));
         $this->load->helper(array('text','form','math'));
         $this->load->library(array('dompdf_lib'));   
-        
-        
+              
     }
     
     function index(){
         if($this->session->userdata('level')=== '2' && $this->mdb->chkwalas() === 1  ){
         $id_guru = $this->mdb->infouser();
-        
+        $data['title'] = 'Halaman Walas';
         $data['namaguru'] = $this->mdb->infouser();
        
         $this->db->join('d_walas','d_walas.id_guru = d_guru.id_guru','inner');
@@ -92,7 +91,7 @@ class Walas extends CI_Controller {
                 $dompdf = new DOMPDF();
                 $dompdf->add_info('Title', 'e-Raport Siakad SMK Negeri 1 Kota Bekasi');
                 $dompdf->load_html($html);
-                $dompdf->set_paper("A4","potrait");
+                $dompdf->set_paper("F4","potrait");
                 $dompdf->render();
                 $dompdf->stream($namafile.".pdf", array("Attachment" => 1));                               
             
@@ -121,18 +120,64 @@ class Walas extends CI_Controller {
                     $this->db->join('d_kelas','d_kelas.id_kelas = d_siswa.id_kelas','inner');
                     $data['siswa']= $this->mdb->gettable('d_siswa');
 
-            //query jika nis diisi
+            //KELOMPOK A
             $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
             $this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
             $this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','inner');
             $this->db->join('d_siswa','d_siswa.nis = d_nilai.nis','inner');
             $this->db->join('r_matpel','r_matpel.id_matpel = d_matpelguru.id_matpel','inner');
-            $this->db->join('r_kategori_matpel','r_kategori_matpel.id_katmapel = r_matpel.id_katmapel','inner');
-            $this->db->where(array('d_nilai.nis'=>$nis,'r_tahun.id_tahun'=>$id_tahun));
-            $this->db->order_by('r_matpel.id_katmapel','asc');
-            $data['isi'] = $this->mdb->gettable('d_nilai');
-            //=====================================
+            $this->db->join('r_kategori_matpel','r_kategori_matpel.id_katmapel = r_matpel.id_katmapel','INNER');
             
+            $this->db->where(array('d_nilai.nis'=>$nis,'r_tahun.id_tahun'=>$id_tahun,'r_kategori_matpel.kelompok'=>'A'));
+            $this->db->order_by('r_matpel.id_katmapel','asc');
+            $data['kel_a'] = $this->mdb->gettable('d_nilai');
+            //=====================================
+            //KELOMPOK B
+            $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+            $this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
+            $this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','inner');
+            $this->db->join('d_siswa','d_siswa.nis = d_nilai.nis','inner');
+            $this->db->join('r_matpel','r_matpel.id_matpel = d_matpelguru.id_matpel','inner');
+            $this->db->join('r_kategori_matpel','r_kategori_matpel.id_katmapel = r_matpel.id_katmapel','INNER');
+            
+            $this->db->where(array('d_nilai.nis'=>$nis,'r_tahun.id_tahun'=>$id_tahun,'r_kategori_matpel.kelompok'=>'B'));
+            $this->db->order_by('r_matpel.id_katmapel','asc');
+            $data['kel_b'] = $this->mdb->gettable('d_nilai');
+            //=================================
+            //KELOMPOK C1
+            $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+            $this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
+            $this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','inner');
+            $this->db->join('d_siswa','d_siswa.nis = d_nilai.nis','inner');
+            $this->db->join('r_matpel','r_matpel.id_matpel = d_matpelguru.id_matpel','inner');
+            $this->db->join('r_kategori_matpel','r_kategori_matpel.id_katmapel = r_matpel.id_katmapel','INNER');
+            
+            $this->db->where(array('d_nilai.nis'=>$nis,'r_tahun.id_tahun'=>$id_tahun,'r_kategori_matpel.kelompok'=>'C1'));
+            $this->db->order_by('r_matpel.id_katmapel','asc');
+            $data['kel_c1'] = $this->mdb->gettable('d_nilai');
+            //================================================
+            $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+            $this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
+            $this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','inner');
+            $this->db->join('d_siswa','d_siswa.nis = d_nilai.nis','inner');
+            $this->db->join('r_matpel','r_matpel.id_matpel = d_matpelguru.id_matpel','inner');
+            $this->db->join('r_kategori_matpel','r_kategori_matpel.id_katmapel = r_matpel.id_katmapel','INNER');
+            
+            $this->db->where(array('d_nilai.nis'=>$nis,'r_tahun.id_tahun'=>$id_tahun,'r_kategori_matpel.kelompok'=>'C2'));
+            $this->db->order_by('r_matpel.id_katmapel','asc');
+            $data['kel_c2'] = $this->mdb->gettable('d_nilai');
+            //=================================================================
+            $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+            $this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
+            $this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','inner');
+            $this->db->join('d_siswa','d_siswa.nis = d_nilai.nis','inner');
+            $this->db->join('r_matpel','r_matpel.id_matpel = d_matpelguru.id_matpel','inner');
+            $this->db->join('r_kategori_matpel','r_kategori_matpel.id_katmapel = r_matpel.id_katmapel','INNER');
+            
+            $this->db->where(array('d_nilai.nis'=>$nis,'r_tahun.id_tahun'=>$id_tahun,'r_kategori_matpel.kelompok'=>'C3'));
+            $this->db->order_by('r_matpel.id_katmapel','asc');
+            $data['kel_c3'] = $this->mdb->gettable('d_nilai');
+            //====================================================================
             $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
             $this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
             $this->db->join('r_tahun','r_tahun.id_tahun=d_matpelguru.id_tahun','inner');
@@ -143,6 +188,14 @@ class Walas extends CI_Controller {
             $this->db->order_by('r_matpel.id_katmapel','asc');
             $data['jmh'] = $this->db->count_all_results('d_nilai');
             
+            //Ekstrakulikuler
+            $this->db->join('r_ekstrakulikuler','r_ekstrakulikuler.id_ekskul = d_ekskul_siswa.id_ekskul ','INNER');
+            $this->db->where(array('nis'=>$nis));
+            $data['ekskul'] = $this->mdb->gettable('d_ekskul_siswa');
+            //Absensi
+            $this->db->where(array('nis'=>$nis,'id_tahun'=>$id_tahun));
+            $abs = $this->db->get('d_absen_siswa');
+            $data['absen'] = $abs->row();
             //walas
             $this->db->join('d_kelas','d_kelas.id_kelas = d_walas.id_kelas','inner');
             $this->db->join('d_guru','d_guru.id_guru = d_walas.id_guru');
@@ -166,15 +219,15 @@ class Walas extends CI_Controller {
             $dd = $this->db->get(array('d_siswa','r_tahun'));
             $data['dtl'] = $dd->row(); 
             //============
-            //$this->load->view('siswa/mapel/nilairaport1',$data);
-                $html = $this->load->view('siswa/mapel/nilairaport1',$data,true);
-                $namafile = "".$data['dtl']->nama_siswa." nilai_raport ". date('Y-m-d')."";
-                $dompdf = new DOMPDF();
-                $dompdf->add_info('Title', 'e-Raport Siakad SMK Negeri 1 Kota Bekasi');
-                $dompdf->load_html($html);
-                $dompdf->set_paper("F4","potrait");
-                $dompdf->render();
-                $dompdf->stream($namafile.".pdf", array("Attachment" => 1));                               
+            $this->load->view('siswa/mapel/nilairaport1',$data);
+                //$html = $this->load->view('siswa/mapel/nilairaport1',$data,true);
+                //$namafile = "".$data['dtl']->nama_siswa." nilai_raport ". date('Y-m-d')."";
+                //$dompdf = new DOMPDF();
+                //$dompdf->add_info('Title', 'e-Raport Siakad SMK Negeri 1 Kota Bekasi');
+                //$dompdf->load_html($html);
+                //$dompdf->set_paper("F4","potrait");
+                //$dompdf->render();
+                //$dompdf->stream($namafile.".pdf", array("Attachment" => 1));                               
             
                 }
 
@@ -304,6 +357,86 @@ class Walas extends CI_Controller {
     		
     	}else{
     		redirect('home','refresh');
+    	}
+    }
+    
+function absensi(){
+    	$nis = $this->uri->segment(3);
+    	$tahun = $this->mdb->getTahunAktif();
+    	$thn = $tahun->id_tahun;
+    	
+    	if($this->session->userdata('level')=== '2' && $this->mdb->chkwalas() === 1  ){
+    		$id_guru = $this->mdb->infouser();
+    		$data['namaguru'] = $this->mdb->infouser();
+    		$data['title'] = 'Daftar Absensi';
+    		$a = $this->mdb->chkexist('d_absen_siswa',array('nis'=>$nis,'id_tahun'=>$thn));
+    		
+    		
+    		if($a === 0){
+    			$this->db->select(array('d_siswa.nis as no_induk','nama_siswa','sakit','ijin','tanpa_keterangan'));
+    			$this->db->where(array('d_siswa.nis'=>$nis));
+    			$this->db->join('d_absen_siswa','d_siswa.nis = d_absen_siswa.nis','left');
+    			$dd = $this->db->get('d_siswa');
+    			$data['dtl'] = $dd->row(); 
+    			$data['th'] = $thn;
+    			$this->load->view('guru/mapel/tambahabsen',$data);
+    			
+    		}else{
+    			
+    			$this->db->select(array('d_siswa.nis as no_induk','id_absen','nama_siswa','sakit','ijin','tanpa_keterangan'));
+    			$this->db->where(array('d_absen_siswa.nis'=>$nis,'id_tahun'=>$thn));
+    			$this->db->join('d_siswa','d_siswa.nis = d_absen_siswa.nis','left');
+    			$dd = $this->db->get('d_absen_siswa');
+    			$data['dtl'] = $dd->row(); 
+    			$data['th'] = $thn;
+    			$data['absensiswa'] = $this->mdb->gettable('d_absen_siswa');
+    			 
+    			$this->load->view('guru/mapel/absensiedit',$data);
+    		}
+    		
+    		
+    	}else{
+    		redirect('home','refresh');
+    	}
+    }
+    
+    function absensitambah(){
+    	$nis 					= $this->input->post('nis');
+    	$id_tahun 				= $this->input->post('id_tahun');
+    	$sakit 					= $this->input->post('sakit');
+    	$tanpa_keterangan 		= $this->input->post('tanpa_keterangan');
+    	$ijin 					= $this->input->post('ijin');
+    	$id_absen 				= guidv4(openssl_random_pseudo_bytes(16));
+    
+    	$d = $this->db->insert('d_absen_siswa',array('id_absen'=>$id_absen,'nis'=>$nis,'id_tahun'=>$id_tahun,'sakit'=>$sakit,'tanpa_keterangan'=>$tanpa_keterangan,'ijin'=>$ijin));
+    	 
+    	if($d){
+    		echo "Sukses";
+    	}else{
+    		echo "Gagal";
+    	}
+    	 
+    }
+    
+    function absensiedit(){
+    	$nis 					= $this->input->post('nis');
+    	$id_tahun 				= $this->input->post('id_tahun');
+    	$sakit 					= $this->input->post('sakit');
+    	$tanpa_keterangan 		= $this->input->post('tanpa_keterangan');
+    	$ijin 					= $this->input->post('ijin');
+    	$id_absen				= $this->input->post('id_absen');
+    	//$id_antarmapel = guidv4(openssl_random_pseudo_bytes(16));
+    
+    	//$d = $this->db->insert('d_antarmapel',array('id_antarmapel'=>$id_antarmapel,'nis'=>$nis,'id_tahun'=>$id_tahun,'nilai'=>$nilai));
+    	if(!is_numeric($sakit) || !is_numeric($tanpa_keterangan) || !is_numeric($ijin)){
+    		echo "BukanAngka";
+    	}else{
+    	$d = $this->db->update('d_absen_siswa',array('nis'=>$nis,'sakit'=>$sakit,'tanpa_keterangan'=>$tanpa_keterangan,'ijin'=>$ijin,'id_tahun'=>$id_tahun),array('id_absen'=>$id_absen));
+    		if($d){
+    		echo "Sukses";
+    		}else{
+    		echo "Gagal";
+    		}
     	}
     }
     
