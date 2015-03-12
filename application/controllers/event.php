@@ -60,4 +60,20 @@ class Event extends CI_Controller {
     	}
     }
     
+    function hapus(){
+    	if($this->session->userdata('username') && $this->session->userdata('level') === '111'){
+    		$id_event = $this->uri->segment(3);
+    		
+    		$a = $this->db->delete('d_event',array('id_event'=>$id_event));
+    		if($a){
+    			echo "Success";
+    		}else{
+    			echo "Error";
+    		}
+    	}else{
+    		redirect('home','refresh');
+    	}
+    	
+    }
+    
 }

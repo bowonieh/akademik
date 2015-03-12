@@ -1,3 +1,12 @@
+<?php
+// We change the headers of the page so that the browser will know what sort of file is dealing with. Also, we will tell the browser it has to treat the file as an attachment which cannot be cached.
+ 
+header("Content-type: application/octet-stream");
+header("Content-Disposition: attachment; filename=ledger.xls");
+header("Pragma: no-cache");
+header("Expires: 0");
+?>
+
 <table border="1">
 <thead>
 <tr>
@@ -7,7 +16,10 @@
 <?php 
 foreach($nama_matpel as $d){
 	?>
-	<th colspan="3"><?php echo $d -> matpel;?></th>
+	<th colspan="3">
+	<?php echo $d->id_matpelguru;?>
+	<br>
+	<?php echo $d -> matpel;?></th>
 	<?php 
 }
 ?>
@@ -27,60 +39,73 @@ foreach($nama_matpel as $d){
 <tbody>
 
 <?php 
-$no = 1;
-foreach ($nama as $d){
+	$no=1;
+	foreach($nama as $a ){
 	?>
-	<tr>
-	
-	<td><?php echo $no++;?></td>
-	<td><?php echo $d->nis;?></td>
-	<td><?php echo $d->nama_siswa;?></td>
-	<?php 
-		$nis = $d->nis;
-		$this->db->select(array('skala4_sikap','skala4_pengetahuan','nilai4_keterampilan'));
-		$this->db->where(array('nis'=>$nis,'id_tahun'=>$tahun));
-		$this->db->join('d_matpelguru','d_matpelguru.id_matpelguru=d_nilai.id_matpelguru','right');
-		$this->db->order_by('d_matpelguru.id_matpel');
-		$d = $this->mdb->gettable('d_nilai');
-		foreach($d as $a){
-			?>
-			<td><?php 
-			if(empty($a->skala4_pengetahuan)){
-			echo "-";	
-			}else{
+		<tr>
+			<td><?php echo $no++; ?></td>
+			<td><?php echo $a->nis;?></td>
+			<td><?php echo $a->nama_siswa;?></td>
+	<?php 	
+		
+		
+	for($i = 0 ; $i < count($nama_matpel);$i++){
+		?>
+		<td><?php 
+		if($this->mdb->ambildata('d_nilai',array('nis'=>$a->nis,'id_matpelguru'=>$nama_matpel[$i]->id_matpelguru),'skala4_pengetahuan') === ""){
 			
-			echo $a->skala4_pengetahuan;
+			echo "-";
 			
-			}?></td>
-			<td><?php 
-			if(empty($a->nilai4_keterampilan)){
-				echo "-";
-			}else{
-					
+			//echo $i;
 			
-			echo $a->nilai4_keterampilan;
-			
-			}?></td>
-			<td><?php 
-			if(empty($a->skala4_sikap)){
-				echo "-";
-			}else{
-					
-			
-			echo $a->skala4_sikap;
-			
-			}?></td>
-			<?php 	
+		}else{
+		
+		echo $this->mdb->ambildata('d_nilai',array('nis'=>$a->nis,'id_matpelguru'=>$nama_matpel[$i]->id_matpelguru),'skala4_pengetahuan');
+		//echo $i;
 		}
 		
-	?>
-	
-	
-	</tr>
-	
-	<?php 
-}
+		?></td>
+		<td>
+		
+		
+		<?php 
+		if($this->mdb->ambildata('d_nilai',array('nis'=>$a->nis,'id_matpelguru'=>$nama_matpel[$i]->id_matpelguru),'nilai4_keterampilan') === ""){
+			
+			echo "-";
+			
+		}else{
+		
+		echo $this->mdb->ambildata('d_nilai',array('nis'=>$a->nis,'id_matpelguru'=>$nama_matpel[$i]->id_matpelguru),'nilai4_keterampilan');
+		
+		}
+		
+		?>
+		
+		
+		</td>
+		<td>
+			<?php 
+		if($this->mdb->ambildata('d_nilai',array('nis'=>$a->nis,'id_matpelguru'=>$nama_matpel[$i]->id_matpelguru),'skala4_sikap') === ""){
+			
+			echo "-";
+			
+		}else{
+		
+		echo $this->mdb->ambildata('d_nilai',array('nis'=>$a->nis,'id_matpelguru'=>$nama_matpel[$i]->id_matpelguru),'skala4_sikap');
+		
+		}
+		
+		?>
+		</td>
+		
+		<?php 
+		}
+		?>
+		</tr>
+		<?php 
+	}
 ?>
+
 </tbody>
 
 </table>

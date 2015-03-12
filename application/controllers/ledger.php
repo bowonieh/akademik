@@ -24,7 +24,7 @@ class Ledger extends CI_Controller {
    	$kelas = $this->uri->segment(3);
    	$sql1 = "SELECT `d_siswa`.`nama_siswa`,`nama_matpel`,`skala4_pengetahuan`,`nilai4_keterampilan`,`skala4_sikap` 
     FROM (`d_siswa`) INNER JOIN `d_kelas` ON `d_kelas`.`id_kelas`=`d_siswa`.`id_kelas` 
-    LEFT JOIN `d_nilai` ON `d_nilai`.`nis`=`d_siswa`.`nis` INNER JOIN `d_matpelguru` 
+    left JOIN `d_nilai` ON `d_nilai`.`nis`=`d_siswa`.`nis` INNER JOIN `d_matpelguru` 
     ON `d_matpelguru`.`id_matpelguru`=`d_nilai`.`id_matpelguru` INNER JOIN `r_tahun` 
     ON `r_tahun`.`id_tahun` = `d_matpelguru`.`id_tahun` WHERE `d_kelas`.`id_kelas` = $kelas 
     AND `r_tahun`.`id_tahun` = $tahun ORDER BY `d_siswa`.`nis`";
@@ -39,7 +39,7 @@ class Ledger extends CI_Controller {
    	$data['kelas'] = $kelas;
    	
    	//List Matpel
-   	$this->db->select('matpel','skala4_sikap');
+   	//$this->db->select('matpel','skala4_sikap');
    	$this->db->where(array('id_tahun'=>$tahun,'d_kelas.id_kelas'=>$kelas));
    	$this->db->group_by('matpel');
    	$this->db->join('d_matpelguru','d_matpelguru.id_matpelguru=d_nilai.id_matpelguru','left');
@@ -52,6 +52,6 @@ class Ledger extends CI_Controller {
    	//nilai
    	$data['nilai'] = $this->db->query($sql1)->result_array();
    	
-   	$this->load->view('admin/kurikulum/ledger2',$data);
+   	$this->load->view('admin/kurikulum/ledger',$data);
    }
 }

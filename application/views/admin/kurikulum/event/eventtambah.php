@@ -124,6 +124,8 @@
                                                 <li><a href="<?php echo base_url();?>index.php/komdasar"><i class="icon-edit"></i><span class="hidden-tablet"> KOMPETENSI DASAR</span></a></li>
                        <li class="nav-header hidden-tablet">Administrasi Sekolah</li>
                        							<li><a href="<?php echo base_url();?>index.php/event"><i class="icon-edit"></i><span class="hidden-tablet"> Agenda Kegiatan</span></a></li>                         
+						 <li class="nav-header hidden-tablet">Administrasi KBM</li>
+                       							<li><a href="<?php echo base_url();?>index.php/kurmapel"><i class="icon-edit"></i><span class="hidden-tablet"> Mata Pelajaran Guru</span></a></li>
 					</ul>
 					
 				</div><!--/.well -->

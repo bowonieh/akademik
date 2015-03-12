@@ -200,6 +200,7 @@ class Mdb extends CI_Model{
     function delete($table,$key){
          $this->db->delete($table,$key);   
         }
+        
     function update($table,$data,$where){
         $this->db->update_string($table, $data, $where);
     }
@@ -502,4 +503,21 @@ class Mdb extends CI_Model{
         		return FALSE;
         	}
         }
+        
+        function ambildata($table,$key,$field){
+			$z = $this->ambilBaris($table, $key);
+			if(empty($z)){
+				
+			}else{
+        		return $z->$field;
+			}
+        	
+        }
+        	
+        	
+        	
+        	
+        	
+    
+        
 }

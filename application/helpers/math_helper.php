@@ -160,3 +160,26 @@ function konversi4($x){
     }
 }
 
+function vlookup($lookupValue,$array){
+
+	$result;
+
+	//test each set against the $lookupValue variable,
+	//and set/reset the $result value
+
+	foreach($array as $key => $value)
+	{
+		if($lookupValue > $key)
+		{
+			$result = $value;
+		}
+	}
+
+	return $result;
+
+}
+
+function v_lookup($val,$col){
+	
+}
+

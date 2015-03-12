@@ -36,7 +36,16 @@ class Kurmapel extends CI_Controller{
              redirect('home','refresh');
          }else{
          	
-                $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+         	
+         	$this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
+         	$this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
+         	$this->db->join('d_siswa','d_siswa.nis= d_nilai.nis','inner');
+         	$this->db->join('d_kelas','d_kelas.id_kelas = d_siswa.id_kelas','inner');
+         	//$d = $this->db->get_where('d_nilai',array('d_matpelguru.id_matpelguru'=>$id));
+         	//$this->db->where(array('d_matpelguru.id_matpelguru'=>$id_matpel));
+         	$data['detil'] = $this->mdb->getDetil('d_nilai',array('d_matpelguru.id_matpelguru'=>$id_matpel));
+         	//======================================================================
+            $this->db->join('d_matpelguru','d_matpelguru.id_matpelguru = d_nilai.id_matpelguru','inner');
     		$this->db->join('d_guru','d_guru.id_guru = d_matpelguru.id_guru','inner');
     		$this->db->join('d_siswa','d_siswa.nis= d_nilai.nis','inner');
     		$this->db->join('d_kelas','d_kelas.id_kelas = d_siswa.id_kelas','inner');

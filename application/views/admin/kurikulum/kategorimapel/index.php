@@ -135,6 +135,8 @@
                                             <?php
                                             }?>
 						
+					 <li class="nav-header hidden-tablet">Administrasi KBM</li>
+                       							<li><a href="<?php echo base_url();?>index.php/kurmapel"><i class="icon-edit"></i><span class="hidden-tablet"> Mata Pelajaran Guru</span></a></li>
 					</ul>
 					<label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
 				</div><!--/.well -->

@@ -124,6 +124,8 @@
                                                 <li><a href="<?php echo base_url();?>index.php/komdasar"><i class="icon-edit"></i><span class="hidden-tablet"> KOMPETENSI DASAR</span></a></li>
                        <li class="nav-header hidden-tablet">Administrasi Sekolah</li>
                        							<li><a href="<?php echo base_url();?>index.php/event"><i class="icon-edit"></i><span class="hidden-tablet"> Agenda Kegiatan</span></a></li>                         
+						 <li class="nav-header hidden-tablet">Administrasi KBM</li>
+                       							<li><a href="<?php echo base_url();?>index.php/kurmapel"><i class="icon-edit"></i><span class="hidden-tablet"> Mata Pelajaran Guru</span></a></li>
 					</ul>
 					
 				</div><!--/.well -->
@@ -179,7 +181,7 @@
                      <span class="isian"><?php echo $mapel->tahun;?></span>
                     <hr>
                     <br>
-                    <a href="#" class="btn btn-success">Update Details</a>
+                    
                     <br /><br/>
                 </div>
                 <div class="span6">
@@ -194,7 +196,7 @@
                         <a href="#" class="btn btn-social btn-linkedin">
                             <i class="fa fa-linkedin"></i>&nbsp; Linkedin </a>
                     </div>  -->
-                    <div class="form-group span4">
+                    <div class="form-group span6">
                         <!-- <h3>Change YOur Password</h3>
                         <br />  -->
                         <label>Jumlah Peserta Aktif</label>
@@ -206,7 +208,9 @@
                        
                        
                         <br>
+                        <a href="<?php echo base_url();?>index.php/kurmapel/download/<?php echo $mapel->id_matpelguru;?>" class="btn btn-primary">Download XLS</a>
                         <a href="<?php echo base_url();?>index.php/kurmapel" class="btn btn-warning">Kembali</a>
+                         
                     </div>
                 </div>
             </div>
@@ -233,20 +237,7 @@
 				</div><!--/fluid-row-->
 				
 		<hr>
-                    
-		<div class="modal hide fade" id="myModal">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3>Settings</h3>
-			</div>
-			<div class="modal-body">
-				<p>Here settings can be configured...</p>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary">Save changes</a>
-			</div>
-		</div>
+         
 
 		<footer>
 			<p class="pull-left">&copy; <a href="http://usman.it" target="_blank">Muhammad Usman</a> 2012</p>
